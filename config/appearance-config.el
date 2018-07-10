@@ -16,19 +16,17 @@
 (setq-default indicate-empty-lines t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;;; Theme
-(load-theme 'ample-zen 1)
-
 ;;; Face(s)
-(set-face-attribute 'default nil :font "Andale Mono-12")
-(set-frame-font "Andale Mono-12" nil t)
+(set-face-attribute 'default t :font "Menlo-11" :height 110)
 
 ;;; Scrolling
 (setq scroll-margin 3)
 (setq scroll-conservatively 101)
 
 (use-package nlinum-relative
+  :ensure t
   :init
+  (global-nlinum-relative-mode)
   (setq nlinum-relative-current-symbol "->")
   (setq nlinum-relative-redisplay-delay 0)
   :config

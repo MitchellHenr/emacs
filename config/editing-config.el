@@ -21,6 +21,12 @@
   :config
   (global-auto-complete-mode 1))
 
+;;; Headers:
+(autoload 'auto-update-file-header "header2")
+(add-hook 'write-file-hooks 'auto-update-file-header)
+
+(autoload 'auto-make-header "header2")
+
 
 (provide 'editing-config)
 ;;; editing-config.el ends here
