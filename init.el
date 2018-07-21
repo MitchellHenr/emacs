@@ -1,15 +1,72 @@
+(package-initialize)
+
 (require 'package)
+
+(setq package-enable-at-startup nil)
 
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(defvar backup-dir "~/.emacs.d/backups")
+(setq backup-directory-alist (list (cons "." backup-dir)))
+(setq make-backup-files nil)
+
+
+;; Universal preferences
+
+;;;; Function
+(electric-pair-mode 1)
+;; (show-paren-mode 1)
+
+(setq-default left-fringe-width nil)
+(setq-default indicate-empty-lines t)
+
+(setq confirm-kill-emacs 'yes-or-no-p)
+(setq auto-save-default nil)
+;; When editing symlinks, allow Emacs to access Git things
+(setq vc-follow-symlinks 1)
+
+(add-to-list 'write-file-functions 'delete-trailing-whitespace)
+
+(put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
+
+;;;; Appearance
+
+;; Startup
+(setq inhibit-splash-screen 1)
+(setq inhibit-startup-message 1)
+(setq initial-scratch-message "")
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
+
+;; Smooth scrolling
+(setq scroll-margin 2)
+(setq scroll-conservatively 1000)
+
+(global-font-lock-mode 1)
+
+(setq-default display-line-numbers-type 'relative)
+
+(column-number-mode 1)
+(global-display-line-numbers-mode 1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 ;; Packages
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
 (use-package tex
   :ensure auctex
   :defer 1
@@ -38,18 +95,14 @@
 
 (use-package evil
   :ensure t
+
   :init
   (setq evil-want-integration nil)
   (setq evil-search-module 'evil-search)
   (setq evil-want-Y-yank-to-eol 1)
-  :general
-  ("C-k" 'evil-window-up
-   "C-j" 'evil-window-down
-   "C-h" 'evil-window-left
-   "C-l" 'evil-window-right
-   "C-c h" 'help)
+
+
   :config
-  (evil-mode 1)
   (evil-ex-define-cmd "h[elp]" 'help)
   (evil-ex-define-cmd "W[rite]" 'evil-save)
   (evil-ex-define-cmd "E[dit]" 'evil-edit)
@@ -58,12 +111,45 @@
   (setq evil-insert-state-modes nil)
   (setq evil-motion-state-modes nil)
 
-  (setq evil-vsplit-window-left 1))
+  (setq evil-vsplit-window-left -1)
 
-(use-package evil-commentary
-  :ensure t
-  :config
-  (evil-commentary-mode 1))
+  (evil-mode 1))
+
+(general-define-key
+ :states 'normal
+ "C-k" 'evil-window-up
+ "C-j" 'evil-window-down
+ "C-h" 'evil-window-left
+ "C-l" 'evil-window-right
+ "C-c h" 'help
+ :states '(normal visual)
+ "<up>" 'evil-previous-visual-line
+ "<down>" 'evil-previous-visual-line)
+
+ (use-package evil-commentary
+   :requires evil
+   :ensure t
+   :config
+   (evil-commentary-mode))
+
+ (use-package evil-surround
+   :requires evil
+   :ensure t
+   :config
+   (global-evil-surround-mode 1))
+
+ (use-package evil-easymotion
+   :requires evil
+   :ensure t
+   :config
+   (evilem-default-keybindings "SPC"))
+
+ (use-package evil-leader
+   :requires evil
+   :ensure t
+   :config
+   (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
+   (global-evil-leader-mode 1))
 
 (use-package org
   :config
@@ -78,50 +164,14 @@
 	    "j" 'evil-next-line
 	    "k" 'evil-previous-line))
 
-;; Universal preferences
-;;;; Function
-(electric-pair-mode 1)
-(setq confirm-kill-emacs 'yes-or-no-p)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-;; When editing symlinks, allow Emacs to access Git things
-(setq vc-follow-symlinks 1)
+(use-package which-key
+  :defer 1
+  :config
+  (which-key-mode 1))
 
-;;;; Keybindings
-(general-define-key
- :prefix "C-c"
- ;; Org agenda
- "a" 'org-agenda
- "c" 'org-capture)
-
-;;;; Appearance
-(setq inhibit-splash-screen 1)
-(setq inhibit-startup-message 1)
-(setq initial-scratch-message "")
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
-(global-font-lock-mode 1)
-
-(setq-default display-line-numbers-type 'relative)
-
-(global-display-line-numbers-mode 1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (evil-commentary auctex exec-path-from-shell general evil use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package highlight-symbol
+  :ensure t
+  :defer 1
+  :config
+  (setq-default highlight-symbol-idle-delay 1)
+  (highlight-symbol-mode 1))
