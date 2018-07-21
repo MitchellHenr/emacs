@@ -6,7 +6,8 @@
 
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
-
+(add-to-list 'package-archives
+	    '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
@@ -19,10 +20,12 @@
 
 ;;;; Function
 (electric-pair-mode 1)
-;; (show-paren-mode 1)
+(show-paren-mode 1)
 
 (setq-default left-fringe-width nil)
 (setq-default indicate-empty-lines t)
+
+(setq shell-multiple-shells t)
 
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq auto-save-default nil)
@@ -33,6 +36,32 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+
+(setq ispell-program-name "/usr/local/bin/aspell")
+(setq ns-pop-up-frames t)
+(setq message-log-max t)
+
+;; Restoring sessions
+(setq desktop-save 'if-exists)
+(desktop-save-mode 1)
+(setq desktop-restore-eager 1)
+(add-hook 'auto-save-hook (lambda () (desktop-save-in-desktop-dir)))
+(setq desktop-globals-to-save
+      (append '((extended-command-history . 30)
+                (file-name-history        . 100)
+                (grep-history             . 30)
+                (compile-history          . 30)
+                (minibuffer-history       . 50)
+                (query-replace-history    . 60)
+                (read-expression-history  . 60)
+                (regexp-history           . 60)
+                (regexp-search-ring       . 20)
+                (search-ring              . 20)
+                (shell-command-history    . 50)
+                tags-file-name
+                register-alist)))
+
+
 
 ;;;; Appearance
 
@@ -46,6 +75,7 @@
 ;; Smooth scrolling
 (setq scroll-margin 2)
 (setq scroll-conservatively 1000)
+(setq next-line-add-newlines t)
 
 (global-font-lock-mode 1)
 
@@ -56,6 +86,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(blink-cursor-mode -1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
@@ -75,6 +106,11 @@
   (setq-default TeX-master nil)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'LaTeX-mode-hook #'turn-on-flyspell)
+
+  (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
+  (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
+  (add-to-list 'auto-mode-alist '("\\.bbl\\'" . LaTeX-mode))
 
   (setq LaTeX-math-list
 	'((?, "qc" "" nil)
@@ -126,37 +162,39 @@
  "<up>" 'evil-previous-visual-line
  "<down>" 'evil-previous-visual-line)
 
- (use-package evil-commentary
-   :requires evil
-   :ensure t
-   :config
-   (evil-commentary-mode))
+(use-package evil-commentary
+  :requires evil
+  :ensure t
+  :config
+  (evil-commentary-mode))
 
- (use-package evil-surround
-   :requires evil
-   :ensure t
-   :config
-   (global-evil-surround-mode 1))
+(use-package evil-surround
+  :requires evil
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
- (use-package evil-easymotion
-   :requires evil
-   :ensure t
-   :config
-   (evilem-default-keybindings "SPC"))
+(use-package evil-easymotion
+  :requires evil
+  :ensure t
+  :config
+  (evilem-default-keybindings "SPC"))
 
- (use-package evil-leader
-   :requires evil
-   :ensure t
-   :config
-   (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
-   (global-evil-leader-mode 1))
+(use-package evil-leader
+  :requires evil
+  :ensure t
+  :config
+  (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
+  (global-evil-leader-mode 1))
 
 (use-package org
   :config
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELED")))
   (setq org-agenda-files
-	'("~/Todo/school/"))
+	'("~/Todo/school/" "~/Todo/life"))
+  (setq org-startup-indented 1)
+
   :general
   ("C-c a" 'org-agenda
    "C-c c" 'org-capture)
