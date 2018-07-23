@@ -9,6 +9,9 @@
 (add-to-list 'package-archives
 	    '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
+(setq load-path (cons "~/emacs/lisp"
+                            load-path))
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 (defvar backup-dir "~/.emacs.d/backups")
@@ -152,6 +155,7 @@
   (evil-mode 1))
 
 (general-define-key
+ "M-n" 'make-frame
  :states 'normal
  "C-k" 'evil-window-up
  "C-j" 'evil-window-down
