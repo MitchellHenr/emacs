@@ -230,5 +230,5 @@
 				       :states 'normal
 				       "q" 'quit-window)))
 
-(if (string-equal system-type "GSSLW18050294")
-    (require 'GSSLW18050294))
+(if (string-equal system-name "GSSLW18050294")
+    (setq exec-path (append exec-path '("C:/Users/hmmitch2/AppData/Local/Programs/Git/bin"))))
