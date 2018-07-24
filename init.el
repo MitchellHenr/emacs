@@ -154,18 +154,6 @@
 
   (evil-mode 1))
 
-(general-define-key
- "M-n" 'make-frame
- :states 'normal
- "C-k" 'evil-window-up
- "C-j" 'evil-window-down
- "C-h" 'evil-window-left
- "C-l" 'evil-window-right
- "C-c h" 'help
- :states '(normal visual)
- "<up>" 'evil-previous-visual-line
- "<down>" 'evil-previous-visual-line)
-
 (use-package evil-commentary
   :requires evil
   :ensure t
@@ -217,3 +205,30 @@
   :config
   (setq-default highlight-symbol-idle-delay 1)
   (highlight-symbol-mode 1))
+
+(use-package markdown-mode
+  :ensure t)
+
+(use-package magit
+  :ensure t)
+
+(general-define-key
+ "C-x g" 'magit-status
+ "M-n" 'make-frame
+ :states 'normal
+ "C-k" 'evil-window-up
+ "C-j" 'evil-window-down
+ "C-h" 'evil-window-left
+ "C-l" 'evil-window-right
+ "C-c h" 'help
+ :states '(normal visual)
+ "<up>" 'evil-previous-visual-line
+ "<down>" 'evil-previous-visual-line)
+
+(add-hook 'help-mode-hook '(lambda () (general-define-key
+				       :keymaps 'local
+				       :states 'normal
+				       "q" 'quit-window)))
+
+(if (string-equal system-type "GSSLW18050294")
+    (require 'GSSLW18050294))
