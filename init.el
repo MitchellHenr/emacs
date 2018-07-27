@@ -78,7 +78,6 @@
 ;; Smooth scrolling
 (setq scroll-margin 2)
 (setq scroll-conservatively 1000)
-(setq next-line-add-newlines t)
 
 (global-font-lock-mode 1)
 
@@ -109,7 +108,8 @@
   (setq-default TeX-master nil)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'LaTeX-mode-hook #'turn-on-flyspell)
+  (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
+  (add-hook 'before-save-hook 'hmm-tex-add-timestamp)
 
   (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
@@ -146,7 +146,7 @@
   (evil-ex-define-cmd "W[rite]" 'evil-save)
   (evil-ex-define-cmd "E[dit]" 'evil-edit)
 
-  (setq evil-emacs-state-modes nil)
+  (setq evil-emacs-state-modes (list 'magit-popup-mode))
   (setq evil-insert-state-modes nil)
   (setq evil-motion-state-modes nil)
 
@@ -225,10 +225,32 @@
  "<up>" 'evil-previous-visual-line
  "<down>" 'evil-previous-visual-line)
 
+(general-define-key
+ :keymaps 'magit-mode-map
+ "c" 'magit-commit
+ "s" 'magit-stage
+ "u" 'magit-unstage)
+
 (add-hook 'help-mode-hook '(lambda () (general-define-key
 				       :keymaps 'local
 				       :states 'normal
 				       "q" 'quit-window)))
+
+(defun hmm-tex-add-timestamp ()
+  "Add a timestamp to the last line of a tex file"
+  (interactive "*")
+  (when (eq major-mode 'latex-mode)
+    (save-excursion
+      (save-restriction
+	(end-of-buffer)
+	(move-beginning-of-line nil)
+	(if (not (search-forward "%% Last updated: " nil t 1))
+	    (progn
+	      (move-end-of-line nil)
+	      (insert "\n\n%% Last updated: "))
+	  (kill-line))
+	(insert (current-time-string)))))
+  nil)
 
 (if (string-equal system-name "GSSLW18050294")
     (setq exec-path (append exec-path '("C:/Users/hmmitch2/AppData/Local/Programs/Git/bin"))))
