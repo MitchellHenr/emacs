@@ -247,7 +247,7 @@
 	(if (not (search-forward "%% Last updated: " nil t 1))
 	    (progn
 	      (move-end-of-line nil)
-	      (insert "\n\n%% Last updated: "))
+	      (insert "\n%% Last updated: "))
 	  (kill-line))
 	(insert (current-time-string)))))
   nil)
