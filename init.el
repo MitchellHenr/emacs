@@ -17,6 +17,7 @@
 (defvar backup-dir "~/.emacs.d/backups")
 (setq backup-directory-alist (list (cons "." backup-dir)))
 (setq make-backup-files nil)
+(server-start)
 
 
 ;; Universal preferences
@@ -33,7 +34,7 @@
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq auto-save-default nil)
 ;; When editing symlinks, allow Emacs to access Git things
-(setq vc-follow-symlinks 1)
+(setq vc-follow-symlinks 0)
 
 (add-to-list 'write-file-functions 'delete-trailing-whitespace)
 
@@ -43,6 +44,7 @@
 (setq ispell-program-name "/usr/local/bin/aspell")
 (setq ns-pop-up-frames t)
 (setq message-log-max t)
+(setq enable-local-variables 'query)
 
 ;; Restoring sessions
 (setq desktop-save 'if-exists)
@@ -80,6 +82,7 @@
 (setq scroll-conservatively 1000)
 
 (global-font-lock-mode 1)
+(global-hl-line-mode 1)
 
 (setq-default display-line-numbers-type 'relative)
 
@@ -182,7 +185,7 @@
 (use-package org
   :config
   (setq org-todo-keywords
-	'((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELED")))
+	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-agenda-files
 	'("~/Todo/school/" "~/Todo/life"))
   (setq org-startup-indented 1)
@@ -209,9 +212,6 @@
 (use-package markdown-mode
   :ensure t)
 
-(use-package magit
-  :ensure t)
-
 (general-define-key
  "C-x g" 'magit-status
  "M-n" 'make-frame
@@ -230,6 +230,10 @@
  "c" 'magit-commit
  "s" 'magit-stage
  "u" 'magit-unstage)
+
+(general-define-key
+ :keymaps 'Buffer-menu-mode-map
+ "k" 'evil-previous-line)
 
 (add-hook 'help-mode-hook '(lambda () (general-define-key
 				       :keymaps 'local
