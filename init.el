@@ -44,7 +44,6 @@
 (setq ispell-program-name "/usr/local/bin/aspell")
 (setq ns-pop-up-frames t)
 (setq message-log-max t)
-(setq enable-local-variables 'query)
 
 ;; Restoring sessions
 (setq desktop-save 'if-exists)
