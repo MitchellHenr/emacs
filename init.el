@@ -7,10 +7,10 @@
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
-	    '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (setq load-path (cons "~/emacs/lisp"
-                            load-path))
+		      load-path))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
@@ -52,18 +52,18 @@
 (add-hook 'auto-save-hook (lambda () (desktop-save-in-desktop-dir)))
 (setq desktop-globals-to-save
       (append '((extended-command-history . 30)
-                (file-name-history        . 100)
-                (grep-history             . 30)
-                (compile-history          . 30)
-                (minibuffer-history       . 50)
-                (query-replace-history    . 60)
-                (read-expression-history  . 60)
-                (regexp-history           . 60)
-                (regexp-search-ring       . 20)
-                (search-ring              . 20)
-                (shell-command-history    . 50)
-                tags-file-name
-                register-alist)))
+		(file-name-history        . 100)
+		(grep-history             . 30)
+		(compile-history          . 30)
+		(minibuffer-history       . 50)
+		(query-replace-history    . 60)
+		(read-expression-history  . 60)
+		(regexp-history           . 60)
+		(regexp-search-ring       . 20)
+		(search-ring              . 20)
+		(shell-command-history    . 50)
+		tags-file-name
+		register-alist)))
 
 
 
@@ -220,6 +220,7 @@
  "C-h" 'evil-window-left
  "C-l" 'evil-window-right
  "C-c h" 'help
+ "<return>" 'hmm-lower-line
  :states '(normal visual)
  "<up>" 'evil-previous-visual-line
  "<down>" 'evil-previous-visual-line)
@@ -232,28 +233,37 @@
 
 (general-define-key
  :keymaps 'Buffer-menu-mode-map
- "k" 'evil-previous-line)
+ "k" 'evil-previous-line
+ "<return>" 'Buffer-menu-this-window)
 
-(add-hook 'help-mode-hook '(lambda () (general-define-key
-				       :keymaps 'local
-				       :states 'normal
-				       "q" 'quit-window)))
+(general-define-key
+ :keymaps 'help-mode-map
+ :states 'normal
+ "q" 'quit-window)
+
+(defun hmm-lower-line ()
+  "Add a line above, without moving point"
+  (interactive "*")
+  (let ((col (current-column)))
+    (evil-open-above 1)
+    (evil-next-line)
+    (move-to-column col)
+    (evil-force-normal-state))
+  nil)
 
 (defun hmm-tex-add-timestamp ()
   "Add a timestamp to the last line of a tex file"
   (interactive "*")
   (when (eq major-mode 'latex-mode)
     (save-excursion
-      (save-restriction
-	(end-of-buffer)
-	(move-beginning-of-line nil)
-	(if (not (search-forward "%% Last updated: " nil t 1))
-	    (progn
-	      (move-end-of-line nil)
-	      (insert "\n%% Last updated: "))
-	  (kill-line))
-	(insert (current-time-string)))))
+      (save-window-excursion
+	(save-restriction
+	  (end-of-buffer)
+	  (move-beginning-of-line nil)
+	  (if (not (search-forward "%% Last updated: " nil t 1))
+	      (progn
+		(move-end-of-line nil)
+		(insert "\n%% Last updated: "))
+	    (kill-line))
+	  (insert (current-time-string))))))
   nil)
-
-(if (string-equal system-name "GSSLW18050294")
-    (setq exec-path (append exec-path '("C:/Users/hmmitch2/AppData/Local/Programs/Git/bin"))))
