@@ -66,7 +66,6 @@
 		register-alist)))
 
 
-
 ;;;; Appearance
 
 ;; Startup
@@ -91,6 +90,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
+(global-prettify-symbols-mode 1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
@@ -112,6 +112,7 @@
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
   (add-hook 'before-save-hook 'hmm-tex-add-timestamp)
+  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
 
   (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
@@ -187,14 +188,9 @@
 	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-agenda-files
 	'("~/Todo/school/" "~/Todo/life"))
-  (setq org-startup-indented 1)
-
-  :general
-  ("C-c a" 'org-agenda
-   "C-c c" 'org-capture)
-  (:keymaps 'org-agenda-mode-map
-	    "j" 'evil-next-line
-	    "k" 'evil-previous-line))
+  (setq org-agenda-start-day "0d")
+  (setq org-agenda-span 7)
+  (setq org-agenda-start-on-weekday nil))
 
 (use-package which-key
   :defer 1
@@ -214,6 +210,8 @@
 (general-define-key
  "C-x g" 'magit-status
  "M-n" 'make-frame
+ "C-c a" 'org-agenda
+ "C-c c" 'org-capture
  :states 'normal
  "C-k" 'evil-window-up
  "C-j" 'evil-window-down
@@ -223,16 +221,28 @@
  "<return>" 'hmm-lower-line
  :states '(normal visual)
  "<up>" 'evil-previous-visual-line
- "<down>" 'evil-previous-visual-line)
+ "<down>" 'evil-next-visual-line)
+
+(general-define-key
+ :keymaps 'org-agenda-mode-map
+ :states 'normal
+ "j" 'evil-next-line
+ "k" 'evil-previous-line
+ "t" 'org-agenda-todo
+ "<return>" 'org-agenda-switch-to
+ "f" 'org-agenda-fortnight-view
+ "r" 'org-agenda-redo)
 
 (general-define-key
  :keymaps 'magit-mode-map
+ :states 'normal
  "c" 'magit-commit
  "s" 'magit-stage
  "u" 'magit-unstage)
 
 (general-define-key
  :keymaps 'Buffer-menu-mode-map
+ :states 'normal
  "k" 'evil-previous-line
  "<return>" 'Buffer-menu-this-window)
 
