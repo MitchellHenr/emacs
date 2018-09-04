@@ -251,6 +251,11 @@
  :states 'normal
  "q" 'quit-window)
 
+(general-define-key
+ :keymaps 'dired-mode-map
+ :states 'normal
+ "<return>" 'dired-find-file)
+
 (defun hmm-lower-line ()
   "Add a line above, without moving point"
   (interactive "*")
