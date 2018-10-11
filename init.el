@@ -107,11 +107,11 @@
   :defer 1
   :config
   (setq Tex-tree-roots '("~/.texlive2017" "~/texlive2016"))
-  (setq-default TeX-master nil)
+  (setq-default TeX-master "../main")
+  (setq TeX-parse-self t)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
-  (add-hook 'before-save-hook 'hmm-tex-add-timestamp)
   (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
 
   (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
@@ -263,6 +263,7 @@
     (evil-open-above 1)
     (evil-next-line)
     (move-to-column col)
+    (evil-forward-char)
     (evil-force-normal-state))
   nil)
 

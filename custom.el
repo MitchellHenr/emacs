@@ -3,9 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (markdown-mode highlight-symbol evil-leader evil-easymotion evil-surround evil-commentary evil exec-path-from-shell general auctex use-package))))
+ '(safe-local-variable-values (quote ((TeX-master . \.\./\.\./main)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
