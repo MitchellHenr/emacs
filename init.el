@@ -90,6 +90,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
+(load-theme 'deeper-blue)
 (global-prettify-symbols-mode 1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
@@ -103,16 +104,18 @@
   (require 'use-package))
 
 (use-package tex
+  :defer t
   :ensure auctex
-  :defer 1
   :config
   (setq Tex-tree-roots '("~/.texlive2017" "~/texlive2016"))
   (setq-default TeX-master "../main")
   (setq TeX-parse-self t)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
   (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
+  (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
+  (add-hook 'LaTeX-mode-hook 'abbrev-mode)
 
   (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
@@ -123,6 +126,7 @@
 	  (?6 "partial" "" nil)
 	  (?= "implies" "" nil)
 	  (?8 "infty" "" nil)
+	  (?T "dagger" "" nil)
 	  (?e "varepsilon" "" nil))))
 
 (use-package general
@@ -134,6 +138,9 @@
   :ensure t
   :config
   (exec-path-from-shell-initialize))
+
+(use-package which-key
+  :ensure t)
 
 (use-package evil
   :ensure t
@@ -207,7 +214,15 @@
 (use-package markdown-mode
   :ensure t)
 
-(general-define-key
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package browse-kill-ring
+  :ensure t)
+
+(general-define-key ;; General
  "C-x g" 'magit-status
  "M-n" 'make-frame
  "C-c a" 'org-agenda
@@ -223,7 +238,7 @@
  "<up>" 'evil-previous-visual-line
  "<down>" 'evil-next-visual-line)
 
-(general-define-key
+(general-define-key ;; Org
  :keymaps 'org-agenda-mode-map
  :states 'normal
  "j" 'evil-next-line
@@ -233,28 +248,40 @@
  "f" 'org-agenda-fortnight-view
  "r" 'org-agenda-redo)
 
-(general-define-key
+(general-define-key ;; Magit
  :keymaps 'magit-mode-map
  :states 'normal
  "c" 'magit-commit
  "s" 'magit-stage
  "u" 'magit-unstage)
 
-(general-define-key
+(general-define-key ;; Buffer menu
  :keymaps 'Buffer-menu-mode-map
  :states 'normal
  "k" 'evil-previous-line
  "<return>" 'Buffer-menu-this-window)
 
-(general-define-key
+(general-define-key ;; Help
  :keymaps 'help-mode-map
  :states 'normal
+ "<return>" 'push-button
  "q" 'quit-window)
 
-(general-define-key
+(general-define-key ;; Dired
  :keymaps 'dired-mode-map
  :states 'normal
  "<return>" 'dired-find-file)
+
+(general-define-key ;; Package menu
+ :keymaps 'package-menu-mode-map
+ :states 'normal
+ "<BS>" 'package-menue-backup-unmark
+ "<return>" 'package-menu-describe-package
+ "U" 'package-menu-mark-upgrades
+ "i" 'package-menu-mark-install
+ "u" 'package-menu-mark-upgrades
+ "d" 'package-menu-mark-delete
+ "x" 'package-menu-execute)
 
 (defun hmm-lower-line ()
   "Add a line above, without moving point"
