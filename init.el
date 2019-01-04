@@ -82,7 +82,9 @@
 (global-font-lock-mode 1)
 (global-hl-line-mode 1)
 
-(setq-default display-line-numbers-type 'relative)
+(setq-default display-line-numbers-type 'visual)
+(setq-default display-line-numbers-current-absolute t)
+(setq-default display-line-numbers-widen t)
 
 (column-number-mode 1)
 (global-display-line-numbers-mode 1)
@@ -191,10 +193,12 @@
 
 (use-package org
   :config
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'turn-on-flyspell)
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-agenda-files
-	'("~/Todo/school/" "~/Todo/life"))
+	'("~/Todo/school/" "~/Todo/life" "~/apps/"))
   (setq org-agenda-start-day "0d")
   (setq org-agenda-span 7)
   (setq org-agenda-start-on-weekday nil))
