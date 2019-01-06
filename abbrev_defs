@@ -11,6 +11,10 @@
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
+(define-abbrev-table 'browse-kill-ring-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'browse-kill-ring-mode-abbrev-table '())
+
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
 (define-abbrev-table 'comint-mode-abbrev-table '())
@@ -64,10 +68,15 @@
   '(
     ("ahat" "\\hat{A}" nil 3)
     ("bhat" "\\hat{B}" nil 3)
+    ("h" "\\hbar" nil 28)
     ("kt" "\\tilde{k}" nil 9)
+    ("lhat" "\\hat{L}" nil 29)
+    ("lx" "\\hat{L}_{x}" nil 26)
+    ("ly" "\\hat{L}_{y}" nil 26)
+    ("lz" "\\hat{L}_{z}" nil 19)
     ("mma" "\\milli\\ampere" nil 6)
-    ("phat" "\\hat{p}" nil 11)
-    ("xhat" "\\hat{x}" nil 2)
+    ("phat" "\\hat{p}" nil 30)
+    ("xhat" "\\hat{x}" nil 24)
     ("y1" "\\psi_{\\text{I}}" nil 5)
     ("y2" "\\psi_{\\text{II}}" nil 3)
     ("y3" "\\psi_{\\text{III}}" nil 0)
@@ -86,6 +95,8 @@
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
+
+(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
 
 (define-abbrev-table 'org-mode-abbrev-table '())
 
