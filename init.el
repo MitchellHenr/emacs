@@ -232,6 +232,8 @@
  "C-c a" 'org-agenda
  "C-c c" 'org-capture
  :states 'normal
+ "j" 'evil-next-visual-line
+ "k" 'evil-previous-visual-line
  "C-k" 'evil-window-up
  "C-j" 'evil-window-down
  "C-h" 'evil-window-left
