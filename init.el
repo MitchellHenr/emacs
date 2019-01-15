@@ -26,9 +26,6 @@
 (electric-pair-mode 1)
 (show-paren-mode 1)
 
-(setq-default left-fringe-width nil)
-(setq-default indicate-empty-lines t)
-
 (setq shell-multiple-shells t)
 
 (setq confirm-kill-emacs 'yes-or-no-p)
@@ -72,12 +69,14 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-startup-message 1)
 (setq initial-scratch-message "")
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
+(add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
 
 ;; Smooth scrolling
 (setq scroll-margin 2)
-(setq scroll-conservatively 1000)
+(setq scroll-step 1)
+(setq hscroll-step 1)
 
 (global-font-lock-mode 1)
 (global-hl-line-mode 1)
@@ -92,7 +91,6 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
-(load-theme 'deeper-blue)
 (global-prettify-symbols-mode 1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
@@ -109,7 +107,7 @@
   :defer t
   :ensure auctex
   :config
-  (setq Tex-tree-roots '("~/.texlive2017" "~/texlive2016"))
+  (setq Tex-tree-roots '("~/.texlive2017" "~/.texlive2016" "~/.texlive2018"))
   (setq-default TeX-master "../main")
   (setq TeX-parse-self t)
 
@@ -144,6 +142,19 @@
 (use-package which-key
   :ensure t)
 
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1))
+
+(use-package swiper
+  :ensure t)
+
+(use-package counsel
+  :ensure t
+  :config
+  (counsel-mode 1))
+
 (use-package evil
   :ensure t
 
@@ -156,7 +167,8 @@
   :config
   (evil-ex-define-cmd "h[elp]" 'help)
   (evil-ex-define-cmd "W[rite]" 'evil-save)
-  (evil-ex-define-cmd "E[dit]" 'evil-edit)
+  (evil-ex-define-cmd "E[dit]" 'counsel-find-file)
+  (evil-ex-define-cmd "e[dit]" 'counsel-find-file)
 
   (setq evil-emacs-state-modes (list 'magit-popup-mode))
   (setq evil-insert-state-modes nil)
@@ -193,7 +205,6 @@
 
 (use-package org
   :config
-  (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-on-flyspell)
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
@@ -226,29 +237,38 @@
 (use-package browse-kill-ring
   :ensure t)
 
+(use-package sed-mode
+  :ensure t)
+
+(use-package gruvbox-theme
+  :ensure t
+  :config
+  (load-theme 'gruvbox-dark-hard))
+
 (general-define-key ;; General
+ :keymaps 'global
+ :states 'normal
  "C-x g" 'magit-status
  "M-n" 'make-frame
+ "M-x" 'counsel-M-x
+ "/" 'swiper
+ "?" 'swiper
  "C-c a" 'org-agenda
  "C-c c" 'org-capture
- :states 'normal
- "j" 'evil-next-visual-line
  "k" 'evil-previous-visual-line
+ "j" 'evil-next-visual-line
  "C-k" 'evil-window-up
  "C-j" 'evil-window-down
  "C-h" 'evil-window-left
  "C-l" 'evil-window-right
  "C-c h" 'help
- "<return>" 'hmm-lower-line
- :states '(normal visual)
- "<up>" 'evil-previous-visual-line
- "<down>" 'evil-next-visual-line)
+ "<return>" 'hmm-lower-line)
 
-(general-define-key ;; Org
+(general-define-key ;; Org agenda
  :keymaps 'org-agenda-mode-map
  :states 'normal
- "j" 'evil-next-line
- "k" 'evil-previous-line
+ "k" 'evil-previous-visual-line
+ "j" 'evil-next-visual-line
  "t" 'org-agenda-todo
  "<return>" 'org-agenda-switch-to
  "f" 'org-agenda-fortnight-view
@@ -268,7 +288,7 @@
  "<return>" 'Buffer-menu-this-window)
 
 (general-define-key ;; Help
- :keymaps 'help-mode-map
+ :keymaps '(help-mode-map info-mode-map)
  :states 'normal
  "<return>" 'push-button
  "q" 'quit-window)
