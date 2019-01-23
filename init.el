@@ -13,6 +13,7 @@
 		      load-path))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 (defvar backup-dir "~/.emacs.d/backups")
 (setq backup-directory-alist (list (cons "." backup-dir)))
@@ -25,9 +26,6 @@
 ;;;; Function
 (electric-pair-mode 1)
 (show-paren-mode 1)
-
-(setq-default left-fringe-width nil)
-(setq-default indicate-empty-lines t)
 
 (setq shell-multiple-shells t)
 
@@ -72,12 +70,15 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-startup-message 1)
 (setq initial-scratch-message "")
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
+(add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
 
 ;; Smooth scrolling
 (setq scroll-margin 2)
-(setq scroll-conservatively 1000)
+(setq scroll-step 1)
+(setq hscroll-step 1)
+(setq ring-bell-function 'ignore)
 
 (global-font-lock-mode 1)
 (global-hl-line-mode 1)
@@ -92,10 +93,16 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (blink-cursor-mode -1)
-(load-theme 'deeper-blue)
 (global-prettify-symbols-mode 1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
+(eval-after-load "hideshow"
+  '(add-to-list 'hs-special-modes-alist
+    `(ruby-mode
+      ,(rx (or "def" "class" "if" "module" "do" "{" "[")) ; Block start
+      ,(rx (or "}" "]" "end"))                       ; Block end
+      ,(rx (or "#" "=begin"))                        ; Comment start
+      ruby-forward-sexp nil)))
 
 ;; Packages
 (unless (package-installed-p 'use-package)
@@ -109,7 +116,7 @@
   :defer t
   :ensure auctex
   :config
-  (setq Tex-tree-roots '("~/.texlive2017" "~/texlive2016"))
+  (setq TeX-tree-roots '("~/.texlive2017" "~/texlive2016" "~/.texlive2018"))
   (setq-default TeX-master "../main")
   (setq TeX-parse-self t)
 
@@ -191,6 +198,37 @@
   (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
   (global-evil-leader-mode 1))
 
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1))
+
+(use-package swiper
+  :ensure t)
+
+(use-package counsel
+  :ensure t
+  :config
+  (counsel-mode 1))
+
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable))
+
+(use-package jedi
+  :ensure t)
+
+(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
+
+(use-package py-autopep8
+  :ensure t
+  :config
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
+
 (use-package org
   :config
   (add-hook 'org-mode-hook 'visual-line-mode)
@@ -212,7 +250,7 @@
   :ensure t
   :defer 1
   :config
-  (setq-default highlight-symbol-idle-delay 1)
+  (setq-default highlight-symbol-idle-delay 0.5)
   (highlight-symbol-mode 1))
 
 (use-package markdown-mode
@@ -226,25 +264,45 @@
 (use-package browse-kill-ring
   :ensure t)
 
+(use-package gruvbox-theme
+  :ensure t
+  :config
+  (load-theme 'gruvbox-dark-hard))
+
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
+
+(use-package dimmer
+  :ensure t
+  :config
+  (dimmer-mode)
+  (setq dimmer-fraction 0.4))
+
 (general-define-key ;; General
+ :states '(normal visual)
+ "<down>" 'evil-next-visual-line
+ "<return>" 'hmm-lower-line
+ "<up>" 'evil-previous-visual-line
+ "C-h" 'evil-window-left
+ "C-j" 'evil-window-down
+ "C-k" 'evil-window-up
+ "C-l" 'evil-window-right
  "C-x g" 'magit-status
  "M-n" 'make-frame
- "C-c a" 'org-agenda
- "C-c c" 'org-capture
- :states 'normal
+ "M-x" 'counsel-M-x
  "j" 'evil-next-visual-line
  "k" 'evil-previous-visual-line
- "C-k" 'evil-window-up
- "C-j" 'evil-window-down
- "C-h" 'evil-window-left
- "C-l" 'evil-window-right
- "C-c h" 'help
- "<return>" 'hmm-lower-line
- :states '(normal visual)
- "<up>" 'evil-previous-visual-line
- "<down>" 'evil-next-visual-line)
+ "/" 'swiper)
 
-(general-define-key ;; Org
+(general-define-key
+ :prefix "C-c"
+ "a" 'org-agenda
+ "c" 'org-capture
+ "h" 'help)
+
+(general-define-key ;; Org agenda
  :keymaps 'org-agenda-mode-map
  :states 'normal
  "j" 'evil-next-line
