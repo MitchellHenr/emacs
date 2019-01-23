@@ -77,6 +77,7 @@
 (setq scroll-margin 2)
 (setq scroll-step 1)
 (setq hscroll-step 1)
+(setq ring-bell-function 'ignore)
 
 (global-font-lock-mode 1)
 (global-hl-line-mode 1)
@@ -94,6 +95,13 @@
 (global-prettify-symbols-mode 1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
+(eval-after-load "hideshow"
+  '(add-to-list 'hs-special-modes-alist
+    `(ruby-mode
+      ,(rx (or "def" "class" "if" "module" "do" "{" "[")) ; Block start
+      ,(rx (or "}" "]" "end"))                       ; Block end
+      ,(rx (or "#" "=begin"))                        ; Comment start
+      ruby-forward-sexp nil)))
 
 ;; Packages
 (unless (package-installed-p 'use-package)
@@ -107,7 +115,7 @@
   :defer t
   :ensure auctex
   :config
-  (setq Tex-tree-roots '("~/.texlive2017" "~/.texlive2016" "~/.texlive2018"))
+  (setq TeX-tree-roots '("~/.texlive2017" "~/.texlive2016" "~/.texlive2018"))
   (setq-default TeX-master "../main")
   (setq TeX-parse-self t)
 
@@ -155,53 +163,23 @@
   :config
   (counsel-mode 1))
 
-(use-package evil
-  :ensure t
-
-  :init
-  (setq evil-want-integration nil)
-  (setq evil-search-module 'evil-search)
-  (setq evil-want-Y-yank-to-eol 1)
-
-
-  :config
-  (evil-ex-define-cmd "h[elp]" 'help)
-  (evil-ex-define-cmd "W[rite]" 'evil-save)
-  (evil-ex-define-cmd "E[dit]" 'counsel-find-file)
-  (evil-ex-define-cmd "e[dit]" 'counsel-find-file)
-
-  (setq evil-emacs-state-modes (list 'magit-popup-mode))
-  (setq evil-insert-state-modes nil)
-  (setq evil-motion-state-modes nil)
-
-  (setq evil-vsplit-window-left -1)
-
-  (evil-mode 1))
-
-(use-package evil-commentary
-  :requires evil
+(use-package elpy
   :ensure t
   :config
-  (evil-commentary-mode))
+  (elpy-enable))
 
-(use-package evil-surround
-  :requires evil
+(use-package jedi
+  :ensure t)
+
+(use-package company
   :ensure t
   :config
-  (global-evil-surround-mode 1))
+  (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package evil-easymotion
-  :requires evil
+(use-package py-autopep8
   :ensure t
   :config
-  (evilem-default-keybindings "SPC"))
-
-(use-package evil-leader
-  :requires evil
-  :ensure t
-  :config
-  (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
-  (global-evil-leader-mode 1))
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
 
 (use-package org
   :config
@@ -245,69 +223,57 @@
   :config
   (load-theme 'gruvbox-dark-hard))
 
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
+
+(use-package avy
+  :ensure t)
+
+(use-package visual-regexp
+  :ensure t)
+
+(use-package visual-regexp-steroids
+  :ensure t
+  :requires visual-regexp)
+
+(use-package dimmer
+  :ensure t
+  :config
+  (dimmer-mode)
+  (setq dimmer-fraction 0.4))
+
 (general-define-key ;; General
  :keymaps 'global
- :states 'normal
  "C-x g" 'magit-status
  "M-n" 'make-frame
  "M-x" 'counsel-M-x
- "/" 'swiper
- "?" 'swiper
- "C-c a" 'org-agenda
- "C-c c" 'org-capture
- "k" 'evil-previous-visual-line
- "j" 'evil-next-visual-line
- "C-k" 'evil-window-up
- "C-j" 'evil-window-down
- "C-h" 'evil-window-left
- "C-l" 'evil-window-right
- "C-c h" 'help
- "<return>" 'hmm-lower-line)
+ "C-s" 'swiper)
 
-(general-define-key ;; Org agenda
+(general-define-key
+ :prefix "C-c"
+ "a" 'org-agenda
+ "c" 'org-capture
+ "r" 'vr/replace
+ "q" 'vr/query-replace
+ "C-s" 'vr/isearch-forward
+ "C-r" 'vr/isearch-backward)
+
+(general-define-key
+ :prefix "C-\\"
+ "w" 'avy-goto-word-0
+ "W" 'avy-goto-word-1
+ "f" 'avy-goto-char
+ "F" 'avy-goto-char-2
+ "j" 'avy-goto-line)
+
+(general-define-key ;; Org
  :keymaps 'org-agenda-mode-map
- :states 'normal
- "k" 'evil-previous-visual-line
- "j" 'evil-next-visual-line
- "t" 'org-agenda-todo
- "<return>" 'org-agenda-switch-to
- "f" 'org-agenda-fortnight-view
- "r" 'org-agenda-redo)
-
-(general-define-key ;; Magit
- :keymaps 'magit-mode-map
- :states 'normal
- "c" 'magit-commit
- "s" 'magit-stage
- "u" 'magit-unstage)
-
-(general-define-key ;; Buffer menu
- :keymaps 'Buffer-menu-mode-map
- :states 'normal
- "k" 'evil-previous-line
- "<return>" 'Buffer-menu-this-window)
-
-(general-define-key ;; Help
- :keymaps '(help-mode-map info-mode-map)
- :states 'normal
- "<return>" 'push-button
- "q" 'quit-window)
-
-(general-define-key ;; Dired
- :keymaps 'dired-mode-map
- :states 'normal
- "<return>" 'dired-find-file)
-
-(general-define-key ;; Package menu
- :keymaps 'package-menu-mode-map
- :states 'normal
- "<BS>" 'package-menue-backup-unmark
- "<return>" 'package-menu-describe-package
- "U" 'package-menu-mark-upgrades
- "i" 'package-menu-mark-install
- "u" 'package-menu-mark-upgrades
- "d" 'package-menu-mark-delete
- "x" 'package-menu-execute)
+  "j" 'evil-next-line
+  "<return>" 'org-agenda-switch-to
+  "f" 'org-agenda-fortnight-view
+  "r" 'org-agenda-redo)
 
 (defun hmm-lower-line ()
   "Add a line above, without moving point"
@@ -336,3 +302,4 @@
 	    (kill-line))
 	  (insert (current-time-string))))))
   nil)
+(put 'scroll-left 'disabled nil)
