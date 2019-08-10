@@ -9,6 +9,8 @@
 
 (define-abbrev-table 'TeX-output-mode-abbrev-table '())
 
+(define-abbrev-table 'TeX-special-mode-abbrev-table '())
+
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
 (define-abbrev-table 'browse-kill-ring-edit-mode-abbrev-table '())
@@ -33,6 +35,8 @@
 
 (define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
 
+(define-abbrev-table 'elpy-refactor-mode-abbrev-table '())
+
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'epa-info-mode-abbrev-table '())
@@ -41,9 +45,13 @@
 
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
 
+(define-abbrev-table 'eshell-mode-abbrev-table '())
+
 (define-abbrev-table 'evil-command-window-mode-abbrev-table '())
 
 (define-abbrev-table 'evil-list-view-mode-abbrev-table '())
+
+(define-abbrev-table 'ffip-diff-mode-abbrev-table '())
 
 (define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
 
@@ -60,22 +68,32 @@
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
+(define-abbrev-table 'grep-mode-abbrev-table '())
+
 (define-abbrev-table 'help-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
+
+(define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
+
+(define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
 (define-abbrev-table 'latex-mode-abbrev-table
   '(
     ("ahat" "\\hat{A}" nil 3)
     ("bhat" "\\hat{B}" nil 3)
-    ("h" "\\hbar" nil 28)
     ("kt" "\\tilde{k}" nil 9)
     ("lhat" "\\hat{L}" nil 29)
     ("lx" "\\hat{L}_{x}" nil 26)
     ("ly" "\\hat{L}_{y}" nil 26)
     ("lz" "\\hat{L}_{z}" nil 19)
     ("mma" "\\milli\\ampere" nil 6)
+    ("na" "\\ce{Na^{+}}" nil 11)
+    ("nand" "\\textsc{nand}" nil 10)
+    ("nfet" "\\textsc{nfet}" nil 3)
+    ("pfet" "\\textsc{pfet}" nil 2)
     ("phat" "\\hat{p}" nil 30)
+    ("rth" "\\frac{R_{1} R_{2}}{R_{1} + R_{2}}" nil 5)
     ("xhat" "\\hat{x}" nil 24)
     ("y1" "\\psi_{\\text{I}}" nil 5)
     ("y2" "\\psi_{\\text{II}}" nil 3)
@@ -112,13 +130,23 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'select-tags-table-mode-abbrev-table '())
+
+(define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'slitex-mode-abbrev-table '())
 
+(define-abbrev-table 'snippet-mode-abbrev-table '())
+
 (define-abbrev-table 'special-mode-abbrev-table '())
+
+(define-abbrev-table 'speedbar-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
@@ -137,4 +165,6 @@
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
+(define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 

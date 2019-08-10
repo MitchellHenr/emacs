@@ -1,4 +1,8 @@
 (package-initialize)
+(server-start)
+(defun raise-emacs-on-aqua()
+    (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
+(add-hook 'server-switch-hook 'raise-emacs-on-aqua)
 
 (require 'package)
 
@@ -33,6 +37,8 @@
 (setq auto-save-default nil)
 ;; When editing symlinks, allow Emacs to access Git things
 (setq vc-follow-symlinks 0)
+;; *scratch* buffers start in org mode
+(setq initial-major-mode 'org-mode)
 
 (add-to-list 'write-file-functions 'delete-trailing-whitespace)
 
@@ -70,13 +76,15 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-startup-message 1)
 (setq initial-scratch-message "")
-(add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
+(add-to-list 'default-frame-alist '(font . "Andale Mono-12"))
 (add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
 
 ;; Smooth scrolling
 (setq scroll-margin 2)
 (setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq scroll-preserve-screen-position 1)
 (setq hscroll-step 1)
 (setq ring-bell-function 'ignore)
 
@@ -118,6 +126,7 @@
   :config
   (setq TeX-tree-roots '("~/.texlive2017" "~/texlive2016" "~/.texlive2018"))
   (setq-default TeX-master "../main")
+  (setq-default TeX-PDF-mode t)
   (setq TeX-parse-self t)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
@@ -125,6 +134,13 @@
   (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
   (add-hook 'LaTeX-mode-hook 'abbrev-mode)
+  (add-hook 'bibtex-mode-hook 'hs-minor-mode)
+  (add-hook 'LaTeX-mode-hook
+	    (lambda ()
+	      (add-to-list 'TeX-output-view-style
+			   '("^pdf$" "."
+			     "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b")))
+	    )
 
   (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
@@ -173,11 +189,19 @@
 
   (evil-mode 1))
 
+(use-package evil-leader
+  :requires evil
+  :ensure t
+  :config
+  (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
+  (global-evil-leader-mode 1))
+
 (use-package evil-commentary
   :requires evil
   :ensure t
   :config
-  (evil-commentary-mode))
+  (evil-commentary-mode)
+  (add-hook 'LaTeX-mode-hook (lambda () (setq comment-start "%% "))))
 
 (use-package evil-surround
   :requires evil
@@ -191,12 +215,12 @@
   :config
   (evilem-default-keybindings "SPC"))
 
-(use-package evil-leader
+(use-package evil-goggles
   :requires evil
   :ensure t
   :config
-  (evil-leader/set-key "SPC" 'evil-ex-nohighlight)
-  (global-evil-leader-mode 1))
+  (setq evil-goggles-duration 0.100)
+  (evil-goggles-mode))
 
 (use-package ivy
   :ensure t
@@ -219,11 +243,6 @@
 (use-package jedi
   :ensure t)
 
-(use-package company
-  :ensure t
-  :config
-  (add-hook 'after-init-hook 'global-company-mode))
-
 (use-package py-autopep8
   :ensure t
   :config
@@ -236,7 +255,7 @@
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-agenda-files
-	'("~/Todo/school/" "~/Todo/life" "~/apps/"))
+	'("~/Todo/school/" "~/Todo/life"))
   (setq org-agenda-start-day "0d")
   (setq org-agenda-span 7)
   (setq org-agenda-start-on-weekday nil))
@@ -278,7 +297,31 @@
   :ensure t
   :config
   (dimmer-mode)
-  (setq dimmer-fraction 0.4))
+  (setq dimmer-fraction 0.3))
+
+(use-package xml+
+  :ensure t)
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
+
+(use-package magic-latex-buffer
+  :ensure t
+  :config
+  (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
+
+(use-package julia-mode
+  :ensure t)
+
+(use-package magit
+  :ensure t
+  :general
+  ("C-x g" 'magit-status))
+
+(use-package evil-magit
+  :ensure t)
 
 (general-define-key ;; General
  :states '(normal visual)
@@ -289,7 +332,6 @@
  "C-j" 'evil-window-down
  "C-k" 'evil-window-up
  "C-l" 'evil-window-right
- "C-x g" 'magit-status
  "M-n" 'make-frame
  "M-x" 'counsel-M-x
  "j" 'evil-next-visual-line
@@ -308,16 +350,10 @@
  "j" 'evil-next-line
  "k" 'evil-previous-line
  "t" 'org-agenda-todo
+ "q" 'org-agenda-quit
  "<return>" 'org-agenda-switch-to
  "f" 'org-agenda-fortnight-view
  "r" 'org-agenda-redo)
-
-(general-define-key ;; Magit
- :keymaps 'magit-mode-map
- :states 'normal
- "c" 'magit-commit
- "s" 'magit-stage
- "u" 'magit-unstage)
 
 (general-define-key ;; Buffer menu
  :keymaps 'Buffer-menu-mode-map
@@ -346,6 +382,11 @@
  "u" 'package-menu-mark-upgrades
  "d" 'package-menu-mark-delete
  "x" 'package-menu-execute)
+
+(general-unbind 'normal 'grep-mode-map
+  :with 'ignore
+  "<return>"
+  )
 
 (defun hmm-lower-line ()
   "Add a line above, without moving point"
