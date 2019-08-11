@@ -11,7 +11,7 @@
     ("/Users/hmmitche/Todo/school/misc.org" "/Users/hmmitche/Todo/school/thesis.org" "/Users/hmmitche/Todo/life/list.org")))
  '(package-selected-packages
    (quote
-    (evil-magit magit julia-mode magic-latex-buffer xml+ evil-goggles which-key use-package rainbow-delimiters py-autopep8 markdown-mode jedi highlight-symbol gruvbox-theme general exec-path-from-shell evil-surround evil-leader evil-easymotion evil-commentary elpy dimmer counsel browse-kill-ring auctex)))
+    (evil-indent-plus evil-fringe-mark helm pdf-tools evil-magit magit julia-mode magic-latex-buffer xml+ evil-goggles which-key use-package rainbow-delimiters py-autopep8 markdown-mode jedi highlight-symbol gruvbox-theme general exec-path-from-shell evil-surround evil-leader evil-easymotion evil-commentary elpy dimmer counsel browse-kill-ring auctex)))
  '(safe-local-variable-values (quote ((TeX-engine . pdflatex)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

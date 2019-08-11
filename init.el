@@ -30,6 +30,7 @@
 ;;;; Function
 (electric-pair-mode 1)
 (show-paren-mode 1)
+(global-auto-revert-mode 1)
 
 (setq shell-multiple-shells t)
 
@@ -44,6 +45,7 @@
 
 (put 'narrow-to-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+(setq-default dired-listing-switches "-alGFh")
 
 (setq ispell-program-name "/usr/local/bin/aspell")
 (setq ns-pop-up-frames t)
@@ -121,7 +123,7 @@
   (require 'use-package))
 
 (use-package tex
-  :defer t
+  :defer 1
   :ensure auctex
   :config
   (setq TeX-tree-roots '("~/.texlive2017" "~/texlive2016" "~/.texlive2018"))
@@ -179,7 +181,10 @@
   :config
   (evil-ex-define-cmd "h[elp]" 'help)
   (evil-ex-define-cmd "W[rite]" 'evil-save)
-  (evil-ex-define-cmd "E[dit]" 'evil-edit)
+  (evil-ex-define-cmd "e[dit]" 'ido-find-file)
+  (evil-ex-define-cmd "E[dit]" 'ido-find-file)
+  (evil-ex-define-cmd "b[uffer]" 'ido-switch-buffer)
+  (evil-ex-define-cmd "B[uffer]" 'ido-switch-buffer)
 
   (setq evil-emacs-state-modes (list 'magit-popup-mode))
   (setq evil-insert-state-modes nil)
@@ -207,7 +212,9 @@
   :requires evil
   :ensure t
   :config
-  (global-evil-surround-mode 1))
+  (global-evil-surround-mode 1)
+  (add-hook 'LaTeX-mode-hook (lambda ()
+			       (push '(?$ . ("$" . "$")) evil-surround-pairs-alist))))
 
 (use-package evil-easymotion
   :requires evil
@@ -313,6 +320,7 @@
   (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
 
 (use-package julia-mode
+  :defer 1
   :ensure t)
 
 (use-package magit
@@ -322,6 +330,18 @@
 
 (use-package evil-magit
   :ensure t)
+
+(use-package ido
+  :ensure t
+  :config
+  (ido-mode t)
+  (ido-everywhere t)
+  (setq ido-enable-flex-matching t))
+
+(use-package evil-indent-plus
+  :ensure t
+  :config
+  (evil-indent-plus-default-bindings))
 
 (general-define-key ;; General
  :states '(normal visual)
@@ -353,7 +373,11 @@
  "q" 'org-agenda-quit
  "<return>" 'org-agenda-switch-to
  "f" 'org-agenda-fortnight-view
- "r" 'org-agenda-redo)
+ "r" 'org-agenda-redo
+ "<right>" 'org-agenda-later
+ "<down>" 'org-agenda-later
+ "<up>" 'org-agenda-earlier
+ "<left>" 'org-agenda-earlier)
 
 (general-define-key ;; Buffer menu
  :keymaps 'Buffer-menu-mode-map
@@ -382,6 +406,11 @@
  "u" 'package-menu-mark-upgrades
  "d" 'package-menu-mark-delete
  "x" 'package-menu-execute)
+
+(general-define-key
+ :keymaps 'LaTeX-mode-map
+ :states 'normal
+ "*" 'LaTeX-environment)
 
 (general-unbind 'normal 'grep-mode-map
   :with 'ignore
@@ -415,3 +444,16 @@
 	    (kill-line))
 	  (insert (current-time-string))))))
   nil)
+
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc ’kill-buffer (delq (current-buffer) (buffer-list))))
+
+(defun kill-dired-buffers ()
+  "Kill all open dired buffers."
+  (interactive)
+  (mapc (lambda (buffer)
+  (when (eq 'dired-mode (buffer-local-value ’major-mode buffer))
+    (kill-buffer buffer)))
+(buffer-list)))
