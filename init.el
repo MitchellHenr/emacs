@@ -132,6 +132,7 @@
   (setq TeX-parse-self t)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'LaTeX-mode-hook 'reftex-mode)
   (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
   (add-hook 'LaTeX-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
@@ -358,7 +359,7 @@
  "k" 'evil-previous-visual-line
  "/" 'swiper)
 
-(general-define-key
+(general-define-key ;; Getting to org agenda
  :prefix "C-c"
  "a" 'org-agenda
  "c" 'org-capture
@@ -378,6 +379,11 @@
  "<down>" 'org-agenda-later
  "<up>" 'org-agenda-earlier
  "<left>" 'org-agenda-earlier)
+
+(general-define-key ;; Org
+ :keymaps 'org-mode-map
+ :states 'insert
+ "<return>" 'newline-and-indent)
 
 (general-define-key ;; Buffer menu
  :keymaps 'Buffer-menu-mode-map
@@ -407,10 +413,34 @@
  "d" 'package-menu-mark-delete
  "x" 'package-menu-execute)
 
-(general-define-key
+(general-define-key ;; LaTeX mode
  :keymaps 'LaTeX-mode-map
  :states 'normal
  "*" 'LaTeX-environment)
+
+(general-define-key ;; reftex TOC mode
+ :keymaps 'reftex-toc-mode-map
+ :states 'normal
+ "SPC" 'reftex-toc-view-line
+ "TAB" 'reftex-toc-goto-line
+ "RET" 'reftex-toc-gotoline-and-hide
+ "<" 'reftex-toc-promote
+ ">" 'reftex-toc-demote
+ "C-c >" 'reftex-toc-display-index
+ "q" 'reftex-toc-quit
+ "l" 'reftex-toc-toggle-labels
+ "i" 'reftex-toc-toggle-index
+ "c" 'reftex-toc-toggle-context
+ "F" 'reftex-toc-toggle-file-borders
+ "t" 'reftex-toc-max-level
+ "f" 'reftex-toc-toggle-follow
+ "g" 'revert-buffer
+ "a" 'reftex-toggle-auto-toc-recenter
+ "d" 'reftex-toggle-dedicated-frame
+ "r" 'reftex-toc-rescan
+ "." 'reftex-toc-show-calling-point
+ "j" 'reftex-toc-next
+ "k" 'reftex-toc-previous)
 
 (general-unbind 'normal 'grep-mode-map
   :with 'ignore
