@@ -19,9 +19,13 @@
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
+(define-abbrev-table 'change-log-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
+
+(define-abbrev-table 'csv-mode-abbrev-table '())
 
 (define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
 
@@ -61,10 +65,9 @@
 
 (define-abbrev-table 'gfm-view-mode-abbrev-table '())
 
-(define-abbrev-table 'global-abbrev-table
-  '(
-    ("y1" "\\psi_{\\text{I}}" nil 0)
-   ))
+(define-abbrev-table 'git-commit-elisp-text-mode-abbrev-table '())
+
+(define-abbrev-table 'global-abbrev-table '())
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -72,11 +75,15 @@
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'inferior-julia-mode-abbrev-table '())
+
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
+
+(define-abbrev-table 'julia-mode-abbrev-table '())
 
 (define-abbrev-table 'latex-mode-abbrev-table
   '(
@@ -88,7 +95,6 @@
     ("ly" "\\hat{L}_{y}" nil 26)
     ("lz" "\\hat{L}_{z}" nil 19)
     ("mma" "\\milli\\ampere" nil 6)
-    ("na" "\\ce{Na^{+}}" nil 11)
     ("nand" "\\textsc{nand}" nil 10)
     ("nfet" "\\textsc{nfet}" nil 3)
     ("pfet" "\\textsc{pfet}" nil 2)
@@ -101,6 +107,38 @@
    ))
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'log-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-cherry-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-diff-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-log-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-log-select-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-merge-preview-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-process-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-reflog-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-refs-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-repolist-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-revision-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-stash-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-stashes-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-status-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-submodule-list-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
@@ -167,4 +205,3 @@
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-
