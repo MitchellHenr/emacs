@@ -1,7 +1,7 @@
 (package-initialize)
 (server-start)
 (defun raise-emacs-on-aqua()
-    (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
+  (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
 (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
 
 (require 'package)
@@ -10,8 +10,10 @@
 
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;; 	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
-	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+	     '("org" . "https://orgmode.org/elpa/") t)
 
 (setq load-path (cons "~/emacs/lisp"
 		      load-path))
@@ -50,6 +52,7 @@
 (setq ispell-program-name "/usr/local/bin/aspell")
 (setq ns-pop-up-frames t)
 (setq message-log-max t)
+(setq ok-if-already-exists t)
 
 ;; Restoring sessions
 (setq desktop-save 'if-exists)
@@ -78,6 +81,7 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-startup-message 1)
 (setq initial-scratch-message "")
+(setq-default truncate-lines nil)
 (add-to-list 'default-frame-alist '(font . "Andale Mono-12"))
 (add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
@@ -89,6 +93,7 @@
 (setq scroll-preserve-screen-position 1)
 (setq hscroll-step 1)
 (setq ring-bell-function 'ignore)
+(setq redisplay-dont-pause 1)
 
 (global-font-lock-mode 1)
 (global-hl-line-mode 1)
@@ -108,11 +113,11 @@
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 (eval-after-load "hideshow"
   '(add-to-list 'hs-special-modes-alist
-    `(ruby-mode
-      ,(rx (or "def" "class" "if" "module" "do" "{" "[")) ; Block start
-      ,(rx (or "}" "]" "end"))                       ; Block end
-      ,(rx (or "#" "=begin"))                        ; Comment start
-      ruby-forward-sexp nil)))
+		`(ruby-mode
+		  ,(rx (or "def" "class" "if" "module" "do" "{" "[")) ; Block start
+		  ,(rx (or "}" "]" "end"))                       ; Block end
+		  ,(rx (or "#" "=begin"))                        ; Comment start
+		  ruby-forward-sexp nil)))
 
 ;; Packages
 (unless (package-installed-p 'use-package)
@@ -130,6 +135,7 @@
   (setq-default TeX-master "../main")
   (setq-default TeX-PDF-mode t)
   (setq TeX-parse-self t)
+  (setq TeX-insert-braces nil)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook 'reftex-mode)
@@ -257,16 +263,31 @@
   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
 
 (use-package org
+  :ensure org-plus-contrib
   :config
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines))
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-on-flyspell)
+  (add-hook 'org-mode-hook 'highlight-symbol-mode)
+  (add-hook 'org-mode-hook 'LaTeX-math-mode)
+  (add-hook 'org-mode-hook 'rainbow-delimiters-mode)
+  (modify-syntax-entry ?< "w" org-mode-syntax-table)
+  (modify-syntax-entry ?> "w" org-mode-syntax-table)
+  (modify-syntax-entry ?$ "$" org-mode-syntax-table)
+  (setq org-export-in-background t)
+  (setq org-pretty-entities 1)
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-agenda-files
 	'("~/Todo/school/" "~/Todo/life"))
+  (setq org-agenda-hide-tags-regexp "noexport")
   (setq org-agenda-start-day "0d")
   (setq org-agenda-span 7)
-  (setq org-agenda-start-on-weekday nil))
+  (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-todo-ignore-deadlines t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-link-file-path-type 'adaptive))
 
 (use-package which-key
   :defer 1
@@ -291,10 +312,10 @@
 (use-package browse-kill-ring
   :ensure t)
 
-(use-package gruvbox-theme
+(use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
-  (load-theme 'gruvbox-dark-hard))
+  (color-theme-sanityinc-tomorrow-eighties))
 
 (use-package undo-tree
   :ensure t
@@ -305,7 +326,9 @@
   :ensure t
   :config
   (dimmer-mode)
-  (setq dimmer-fraction 0.3))
+  (setq dimmer-fraction 0.4)
+  (dimmer-configure-org)
+  (add-to-list 'dimmer-exclusion-regexp-list "^\\*Org Agenda\\*$"))
 
 (use-package xml+
   :ensure t)
@@ -337,12 +360,17 @@
   :config
   (ido-mode t)
   (ido-everywhere t)
+  (setq ido-default-buffer-method 'selected-window)
   (setq ido-enable-flex-matching t))
 
 (use-package evil-indent-plus
   :ensure t
   :config
   (evil-indent-plus-default-bindings))
+
+(use-package csv-mode
+  :ensure t)
+
 
 (general-define-key ;; General
  :states '(normal visual)
@@ -353,6 +381,7 @@
  "C-j" 'evil-window-down
  "C-k" 'evil-window-up
  "C-l" 'evil-window-right
+ "C-t" 'transpose-chars
  "M-n" 'make-frame
  "M-x" 'counsel-M-x
  "j" 'evil-next-visual-line
@@ -484,6 +513,8 @@
   "Kill all open dired buffers."
   (interactive)
   (mapc (lambda (buffer)
-  (when (eq 'dired-mode (buffer-local-value ’major-mode buffer))
-    (kill-buffer buffer)))
-(buffer-list)))
+	  (when (eq 'dired-mode (buffer-local-value ’major-mode buffer))
+	    (kill-buffer buffer)))
+	(buffer-list)))
+(put 'narrow-to-page 'disabled nil)
+(put 'set-goal-column 'disabled nil)
