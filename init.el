@@ -10,13 +10,12 @@
 
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
-;; (add-to-list 'package-archives
-;; 	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
 	     '("org" . "https://orgmode.org/elpa/") t)
 
-(setq load-path (cons "~/emacs/lisp"
-		      load-path))
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
@@ -81,7 +80,7 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-startup-message 1)
 (setq initial-scratch-message "")
-(setq-default truncate-lines nil)
+(setq-default truncate-lines 1)
 (add-to-list 'default-frame-alist '(font . "Andale Mono-12"))
 (add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
@@ -154,6 +153,8 @@
   (add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.bbl\\'" . LaTeX-mode))
+
+  (setq LaTeX-electric-left-right-brace t)
 
   (setq LaTeX-math-list
 	'((?, "qc" "" nil)
@@ -266,6 +267,7 @@
   :ensure org-plus-contrib
   :config
   (require 'ox-extra)
+  (require 'ol-zoommtg)
   (ox-extras-activate '(ignore-headlines))
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-on-flyspell)
@@ -275,19 +277,21 @@
   (modify-syntax-entry ?< "w" org-mode-syntax-table)
   (modify-syntax-entry ?> "w" org-mode-syntax-table)
   (modify-syntax-entry ?$ "$" org-mode-syntax-table)
-  (setq org-export-in-background t)
-  (setq org-pretty-entities 1)
-  (setq org-todo-keywords
-	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-agenda-files
 	'("~/Todo/school/" "~/Todo/life"))
   (setq org-agenda-hide-tags-regexp "noexport")
-  (setq org-agenda-start-day "0d")
+  (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-span 7)
+  (setq org-agenda-start-day "0d")
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-todo-ignore-deadlines t)
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-link-file-path-type 'adaptive))
+  (setq org-todo-keywords
+	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
+  (setq org-deadline-warning-days 4)
+  (setq org-export-in-background t)
+  (setq org-link-file-path-type 'adaptive)
+  (setq org-log-done 'time)
+  (setq org-pretty-entities 1))
 
 (use-package which-key
   :defer 1
@@ -315,7 +319,7 @@
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
-  (color-theme-sanityinc-tomorrow-eighties))
+  (color-theme-sanityinc-tomorrow-bright))
 
 (use-package undo-tree
   :ensure t
@@ -326,9 +330,7 @@
   :ensure t
   :config
   (dimmer-mode)
-  (setq dimmer-fraction 0.4)
-  (dimmer-configure-org)
-  (add-to-list 'dimmer-exclusion-regexp-list "^\\*Org Agenda\\*$"))
+  (setq dimmer-fraction 0.4))
 
 (use-package xml+
   :ensure t)
