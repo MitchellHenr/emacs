@@ -49,6 +49,8 @@
 (setq-default dired-listing-switches "-alGFh")
 
 (setq ispell-program-name "/usr/local/bin/aspell")
+(setq browse-url-mailto-function 'browse-url-generic)
+(setq browse-url-generic-program "open")
 (setq ns-pop-up-frames t)
 (setq message-log-max t)
 (setq ok-if-already-exists t)
@@ -319,7 +321,7 @@
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
-  (color-theme-sanityinc-tomorrow-bright))
+  (color-theme-sanityinc-tomorrow-eighties))
 
 (use-package undo-tree
   :ensure t
