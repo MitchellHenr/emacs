@@ -280,12 +280,12 @@
   (add-hook 'org-mode-hook 'highlight-symbol-mode)
   (add-hook 'org-mode-hook 'LaTeX-math-mode)
   (add-hook 'org-mode-hook 'rainbow-delimiters-mode)
-  (modify-syntax-entry ?< "w" org-mode-syntax-table)
-  (modify-syntax-entry ?> "w" org-mode-syntax-table)
-  (modify-syntax-entry ?$ "$" org-mode-syntax-table)
+  (add-hook 'org-mode-hook (lambda ()
+			     (setq-local electric-pair-pairs (append
+							      electric-pair-pairs
+							      '((?\$ . ?\$))))))
   (setq org-agenda-files
 	'("~/Todo/school/" "~/Todo/life" "~/apps/apps.org"))
-  (setq org-agenda-hide-tags-regexp "noexport")
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-span 7)
   (setq org-agenda-start-day "0d")
