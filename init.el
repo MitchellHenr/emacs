@@ -51,7 +51,7 @@
 (setq ispell-program-name "/usr/local/bin/aspell")
 (setq browse-url-mailto-function 'browse-url-generic)
 (setq browse-url-generic-program "open")
-(setq ns-pop-up-frames t)
+(setq ns-pop-up-frames nil)
 (setq message-log-max t)
 (setq ok-if-already-exists t)
 
@@ -82,7 +82,8 @@
 (setq inhibit-splash-screen 1)
 (setq inhibit-startup-message 1)
 (setq initial-scratch-message "")
-(setq-default truncate-lines 1)
+(setq truncate-partial-width-windows 20)
+(setq-default truncate-lines nil)
 (add-to-list 'default-frame-alist '(font . "Andale Mono-12"))
 (add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
@@ -136,6 +137,8 @@
   (setq-default TeX-master "../main")
   (setq-default TeX-PDF-mode t)
   (setq TeX-parse-self t)
+  (setq TeX-auto-save t)
+  (setq TeX-auto-untabify t)
   (setq TeX-insert-braces nil)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
@@ -270,6 +273,7 @@
   :config
   (require 'ox-extra)
   (require 'ol-zoommtg)
+  (require 'tex)
   (ox-extras-activate '(ignore-headlines))
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-on-flyspell)
@@ -280,13 +284,14 @@
   (modify-syntax-entry ?> "w" org-mode-syntax-table)
   (modify-syntax-entry ?$ "$" org-mode-syntax-table)
   (setq org-agenda-files
-	'("~/Todo/school/" "~/Todo/life"))
+	'("~/Todo/school/" "~/Todo/life" "~/apps/apps.org"))
   (setq org-agenda-hide-tags-regexp "noexport")
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-span 7)
   (setq org-agenda-start-day "0d")
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-todo-ignore-deadlines t)
+  (setq org-agenda-hide-tags-regexp "ignore\\|noexport")
   (setq org-todo-keywords
 	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
   (setq org-deadline-warning-days 4)

@@ -10,13 +10,13 @@
 
 (defun org-zoommtg-export (link description format)
   "Export a Zoom meeting link from Org files."
-  (let (desc (or description link))
+  (let ((desc (or description link)))
     (pcase format
-      (`html (format "<a target=\"_blank\" href=\"%s\">%s</a>" link desc))
-      (`latex (format "\\href{%s}{%s}" link desc))
-      (`texinfo (format "@uref{%s,%s}" link des))
-      (`ascii (format "%s (%s)" desc link))
-      (t link))))
+      (`html (format "<a target=\"_blank\" href=\"zoommtg:%s\">%s</a>" link desc))
+      (`latex (format "\\href{zoommtg:%s}{%s}" link desc))
+      (`texinfo (format "@uref{zoommtg:%s,%s}" link des))
+      (`ascii (format "%s (zoommtg:%s)" desc link))
+      (_ link))))
 
 (provide 'ol-zoommtg)
 ;;; ol-zoommtg.el ends here

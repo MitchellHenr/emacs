@@ -8,13 +8,16 @@
  '(ansi-color-names-vector
    (vector "#2d2d2d" "#f2777a" "#99cc99" "#ffcc66" "#6699cc" "#cc99cc" "#66cccc" "#cccccc"))
  '(beacon-color "#f2777a")
- '(custom-enabled-themes (quote (sanityinc-tomorrow-bright)))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-eighties)))
  '(custom-safe-themes
    (quote
     ("1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" default)))
  '(fci-rule-color "#515151")
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(frame-background-mode (quote dark))
+ '(org-agenda-files
+   (quote
+    ("/Users/hmmitche/Todo/school/AS_020_152.org" "/Users/hmmitche/Todo/school/AS_020_154.org" "/Users/hmmitche/Todo/school/AS_020_305.org" "/Users/hmmitche/Todo/school/AS_200_141.org" "/Users/hmmitche/Todo/school/AS_280_340.org" "/Users/hmmitche/Todo/school/ME_990_505.org" "/Users/hmmitche/Todo/school/misc.org" "/Users/hmmitche/Todo/school/thesis.org" "/Users/hmmitche/Todo/life/birthdays.org" "/Users/hmmitche/Todo/life/list.org")))
  '(package-selected-packages
    (quote
     (org-plus-contrib xml+ which-key use-package rainbow-delimiters py-autopep8 markdown-mode magic-latex-buffer julia-mode jedi highlight-symbol general exec-path-from-shell evil-surround evil-magit evil-leader evil-indent-plus evil-goggles evil-easymotion evil-commentary elpy dimmer csv-mode counsel color-theme-sanityinc-tomorrow browse-kill-ring auctex)))
