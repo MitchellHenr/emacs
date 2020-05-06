@@ -2,14 +2,14 @@
 
 ;; ----- ido-last-directory-list -----
 (
- ("/Users/hmmitche/thesis/IJBC/" . "auto/")
+ ("/Users/hmmitche/thesis/IJBC/" . "chapter/")
  ("/Users/hmmitche/JHU/AS/020/154/" . "HW/")
  ("/Users/hmmitche/dev/docker/" . "unoconv/")
  ("/Users/hmmitche/thesis/IJBC/chapter/" . "methods_section/")
  ("/Users/hmmitche/JHU/AS/280/340/" . "HW/")
  ("/Users/hmmitche/dev/ruby/sandbox/" . "card_games/")
  ("/Users/hmmitche/dev/ruby/utility/classes/" . "config/")
- ("/Users/hmmitche/JHU/AS/020/154/HW/" . "06/")
+ ("/Users/hmmitche/JHU/AS/020/154/HW/" . "report/")
  ("/Users/hmmitche/JHU/AS/280/340/HW/" . "02/")
  ("/Users/hmmitche/.emacs.d/elpa/" . "color-theme-sanityinc-tomorrow-20200220.1500/")
  ("/Users/hmmitche/.emacs.d/" . "lisp/")
@@ -29,11 +29,11 @@
  ("/Users/hmmitche/.jupyter/lab/user-settings/" . "@jupyterlab/")
  ("/Users/hmmitche/.jupyter/lab/" . "user-settings/")
  ("/Users/hmmitche/.jupyter/" . "nbconfig/")
- ("/Users/hmmitche/JHU/AS/020/" . "154/")
+ ("/Users/hmmitche/JHU/AS/020/" . "152/")
  ("/Users/hmmitche/Downloads/" . "ijbc-2e/")
  ("/Users/hmmitche/JHU/ME/990/505/code/" . "mysql/")
  ("/Users/hmmitche/dev/python/" . "sandbox/")
- ("/Users/hmmitche/dev/" . "docker/")
+ ("/Users/hmmitche/dev/" . "elisp/")
  ("/Users/hmmitche/Downloads/UVM-master-MATH-266-HW/MATH/266/HW/12/" . "code/")
  ("/Users/hmmitche/Downloads/UVM-master-MATH-266-HW/MATH/266/HW/" . "12/")
  ("/Users/hmmitche/JHU/AS/020/350/HW/" . "04/")
@@ -60,7 +60,7 @@
  ("/Users/hmmitche/Todo/" . "life/")
  ("/Users/" . "hmmitche/")
  ("/Users/hmmitche/thesis/" . "IJBC/")
- ("/Users/hmmitche/Documents/" . "recipes/")
+ ("/Users/hmmitche/Documents/" . "papers/")
  ("/Volumes/PAPERS/" . "papers/")
  ("/Volumes/" . "PAPERS/")
  ("/" . "Users/")
@@ -74,26 +74,33 @@
 ;; ----- ido-work-directory-list -----
 (
  "/Users/hmmitche/.emacs.d/"
+ "/Users/hmmitche/apps/"
+ "/Users/hmmitche/tmp/"
+ "/Users/hmmitche/JHU/ME/990/505/"
+ "/Users/hmmitche/.emacs.d/lisp/"
+ "/Users/hmmitche/JHU/AS/020/152/"
+ "/Users/hmmitche/dev/elisp/"
+ "/Users/hmmitche/dev/python/sandbox/"
+ "/Users/hmmitche/"
+ "/Users/hmmitche/JHU/AS/200/141/"
+ "/Users/hmmitche/Documents/resume/"
+ "/Users/hmmitche/thesis/IJBC/"
+ "/Users/hmmitche/thesis/IJBC/chapter/methods_section/"
+ "/Users/hmmitche/JHU/ME/990/505/papers/"
+ "/Users/hmmitche/JHU/AS/020/154/HW/report/"
  "/Users/hmmitche/Documents/"
  "/Users/hmmitche/Documents/recipes/"
  "/Users/hmmitche/Documents/papers/"
  "/Users/hmmitche/thesis/IJBC/auto/"
- "/Users/hmmitche/thesis/IJBC/chapter/methods_section/"
  "/Users/hmmitche/thesis/IJBC/chapter/lit_review_section/"
- "/Users/hmmitche/JHU/AS/020/154/HW/report/"
  "/Users/hmmitche/JHU/AS/280/340/HW/02/"
- "/Users/hmmitche/"
  "/Users/hmmitche/Todo/life/"
- "/Users/hmmitche/thesis/IJBC/"
  "/Users/hmmitche/dev/docker/unoconv/"
  "/Users/hmmitche/thesis/IJBC/chapter/intro_section/"
  "/Users/hmmitche/thesis/final/"
  "/Users/hmmitche/JHU/AS/280/340/HW/03/"
- "/Users/hmmitche/JHU/ME/990/505/"
  "/Users/hmmitche/JHU/"
  "/Users/hmmitche/JHU/AS/280/340/"
- "/Users/hmmitche/.emacs.d/lisp/"
- "/Users/hmmitche/apps/"
  "/Users/hmmitche/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20200220.1500/"
  "/Users/hmmitche/JHU/AS/280/340/HW/01/"
  "/Users/hmmitche/JHU/AS/020/305/"
@@ -107,10 +114,6 @@
  "/Users/hmmitche/Documents/AS_020_305.tex/"
  "/Users/hmmitche/.matplotlib/"
  "/Users/hmmitche/JHU/AS/020/154/HW/05/"
- "/Users/hmmitche/tmp/"
- "/Users/hmmitche/dev/elisp/"
- "/Users/hmmitche/JHU/AS/200/141/"
- "/Users/hmmitche/dev/python/sandbox/"
  "/Users/hmmitche/thesis/final/chapter/methods_section/"
  "/Users/hmmitche/thesis/final/chapter/intro_section/"
  "/Users/hmmitche/thesis/final/chapter/lit_review_section/"
@@ -120,84 +123,117 @@
  "/Users/hmmitche/thesis/final/chapter/"
  "/Users/hmmitche/dev/ruby/utility/alarm/"
  "/Users/hmmitche/thesis/DD/"
- "/Users/hmmitche/JHU/AS/020/154/"
- "/Users/hmmitche/JHU/AS/020/152/"
- "/Users/hmmitche/thesis/defense/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "custom.el"
+ "config.el"
+ "config.org"
  "init.el"
- "ideas.org"
- "recipes.org"
- "papers.bib"
- "ms.el"
- "model.tex"
- "seizures.el"
- "bifurcation.tex"
- "main.org"
- "tmp.org"
+ "apps.org"
+ "output.bib"
+ "tmp.bib"
+ "ol-zoommtg.el"
+ "AS_020_152.org"
+ "agenda_init.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/hmmitche/.emacs.d/" (24222 14014 593831 326000) ".git/" "elpa/" ".gitignore" "init.el" "auto-save-list/" "custom.el" "transient/" "tramp" "abbrev_defs" "lisp/" "ido.last" "snippets/" "ac-comphist.dat" "../" "./")
+ ("/Users/hmmitche/.emacs.d/" (24243 16023 601073 909000) ".git/" "elpa/" ".gitignore" "init.el" "auto-save-list/" "config.el" "custom.el" "transient/" "tramp" "config.org" "abbrev_defs" "lisp/" "ido.last" "snippets/" "ac-comphist.dat" "../" "./")
 
- ("/Users/hmmitche/" (24223 1422 860282 805000) ".jenkins/" ".groovy/" ".zlogin" ".bash_history" "apps/" ".gitconfig" ".inputrc" ".cache/" ".python_history" "Downloads/" ".gem/" ".aspell.en.pws" ".bash_profile" ".mono/" "Documents/" ".npm/" ".zcompdump" ".jupyter/" ".aspell.en.prepl" "thesis/" ".zoomus/" "dev/" ".Trash/" "Dropbox/" ".ghc/" ".profile" "Applications/" "Movies/" ".ssh/" ".texlive2018/" ".cisco/" ".zshenv" ".bash_aliases" ".texmf/" ".dropbox/" "Public/" ".iterm2/" ".pineapple/" ".bash_sessions/" ".cups/" ".node_repl_history" ".emacs.d/" "Todo/" ".oracle_jre_usage/" ".lesshst" ".mkshrc" ".matplotlib/" ".texliveonfly/" ".irb-history" "Library/" "Desktop/" ".iterm2_shell_integration.zsh" ".rvm/" ".ipython/" ".cpan/" ".julia_history" ".bundle/" ".perl6/" ".cfg/" ".atom/" "Pictures/" ".local/" "JHU/" ".zshrc" ".cpanm/" ".bashrc" ".subversion/" ".rbenv/" "bin/" ".iterm2_shell_integration.bash" ".wget-hsts" ".CFUserTextEncoding" ".yarnrc" ".tmux.conf" ".gnupg/" ".DS_Store" ".nvim/" ".vim/" ".zsh_aliases" ".anyconnect" ".semantic-highlight-cache" ".docker/" ".githistory" ".julia/" "Music/" ".config/" "../" "./")
+ ("/Users/hmmitche/" (24243 16002 847655 949000) ".jenkins/" ".groovy/" ".zlogin" ".bash_history" "apps/" ".gitconfig" ".inputrc" ".cache/" "tmp/" ".python_history" "Downloads/" ".gem/" ".aspell.en.pws" ".bash_profile" ".mono/" "Documents/" ".npm/" ".zcompdump" ".jupyter/" ".aspell.en.prepl" "thesis/" ".zoomus/" "dev/" ".Trash/" "Dropbox/" ".ghc/" ".profile" "Applications/" "Movies/" ".ssh/" ".texlive2018/" ".cisco/" ".zshenv" ".bash_aliases" ".texmf/" ".dropbox/" "Public/" ".iterm2/" ".pineapple/" ".bash_sessions/" ".cups/" ".node_repl_history" ".emacs.d/" "Todo/" ".oracle_jre_usage/" ".lesshst" ".mkshrc" ".matplotlib/" ".texliveonfly/" ".irb-history" "Library/" "Desktop/" ".iterm2_shell_integration.zsh" ".rvm/" ".ipython/" ".cpan/" ".julia_history" ".bundle/" ".perl6/" ".cfg/" "Pictures/" ".local/" "JHU/" ".zshrc" "auto/" ".cpanm/" ".bashrc" ".subversion/" ".rbenv/" "bin/" ".iterm2_shell_integration.bash" ".wget-hsts" ".CFUserTextEncoding" ".yarnrc" ".tmux.conf" ".gnupg/" ".DS_Store" ".nvim/" ".vim/" ".zsh_aliases" ".anyconnect" ".semantic-highlight-cache" ".docker/" ".githistory" ".julia/" "Music/" ".config/" "../" "./")
 
- ("/Users/hmmitche/Documents/recipes/" (24064 12930 726808 957000) "recipes.org" "frosting.jpg" "cake.jpg" "../" "./")
+ ("/Users/hmmitche/apps/" (24242 3886 447504 717000) "lor/" "ps/" "lo15/" "apps.org" "../" "./")
 
- ("/Users/hmmitche/Documents/" (24206 6418 985979 922000) "Wolfram Mathematica/" "Zoom/" "bubbles.nb" "recipes/" "ideas.pdf" "ideas.org" "resume/" "papers/" ".DS_Store" "../" "./")
+ ("/Users/hmmitche/JHU/AS/020/152/" (24241 35905 598562 942000) "AS_020_152.org" "AS_020_152.pdf" "AS_020_152.tex" "AS_020_152.html" "../" "./")
 
- ("/Users/hmmitche/JHU/ME/990/505/" (24206 25174 514083 402000) "report.scriv/" "report.pdf" "protocols/" "data/" "ME_990_505.org" "report1.docx" "code/" "report.docx" "figure/" "papers/" "../" "./")
+ ("/Users/hmmitche/tmp/" (24240 6834 178530 551000) "dois.txt" "output.bib" "auto/" "../" "./")
 
- ("/Users/hmmitche/Documents/papers/" (24205 60249 529363 277000) "West1987.pdf" "Ott2018.pdf" "Ray2019.pdf" "Manicka2019.pdf" "Nisoli2009.pdf" "Nishikawa2016.pdf" "Galam2019.pdf" "papers.bib" "Ma2019.pdf" "Kuperman2019.pdf" "Sinha2019.pdf" "Zhang2019.pdf" "Marasco2019.pdf" "Odor2019.pdf" "Chaplain2019.pdf" "Ronellenfitsch2019.pdf" "dePedro-Carracedo2019.pdf" "../" "./")
+ ("/Users/hmmitche/JHU/ME/990/505/" (24240 49882 360089 600000) "report.pdf" "protocols/" "data/" "ME_990_505.org" "code/" "report.docx" "~$report.docx" "figure/" "papers/" "../" "./")
 
- ("/Users/hmmitche/thesis/IJBC/chapter/methods_section/" (24198 26230 121237 206000) "implementation.tex" "network.tex" "model.tex" "../" "./")
+ ("/Users/hmmitche/JHU/AS/020/" (24240 27070 958597 443000) "305/" "152/" "auto/" "../" "./")
 
- ("/Users/hmmitche/thesis/IJBC/auto/" (24205 56269 406123 449000) "chimera.el" "bifurcation.el" "lit_review.el" "ms.el" "seizures.el" "../" "./")
+ ("/Users/hmmitche/JHU/AS/" (24234 57538 546843 100000) "020/" "280/" "../" "./")
 
- ("/Users/hmmitche/thesis/IJBC/chapter/lit_review_section/" (24205 56269 409601 60000) "bifurcation.tex" "chimera.tex" "../" "./")
+ ("/Users/hmmitche/dev/python/" (23180 34643 0 0) "sandbox/" "libraries/" "../" "./")
 
- ("/Users/hmmitche/JHU/AS/280/340/HW/02/" (24136 41054 439818 190000) "main.tex" "main.pdf" "main.org" "../" "./")
+ ("/Users/hmmitche/JHU/AS/020/305/" (24236 13938 458030 382000) "AS_020_305.org" "code/" "AS_020_305.pdf" "figure/" "AS_020_305.tex" "../" "./")
 
- ("/Users/hmmitche/JHU/AS/020/152/" (24204 40715 441667 748000) "AS_020_152.org" "../" "./")
+ ("/Users/hmmitche/Todo/life/" (24234 56854 710840 720000) "birthdays.org" "list.org" "../" "./")
 
- ("/Users/hmmitche/JHU/AS/020/154/" (24196 40648 263511 695000) "AS_020_154.org" "manual.pdf" "code/" "figure/" "HW/" "../" "./")
+ ("/Users/hmmitche/JHU/AS/200/141/" (24234 57403 306744 223000) "syllabus.pdf" "AS_200_141.org" "AS_200_141.pdf" "AS_200_141.tex" "../" "./")
+
+ ("/Users/hmmitche/JHU/AS/200/" (24234 57402 983934 924000) "141/" "../" "./")
+
+ ("/Users/hmmitche/thesis/DD/" (24229 34296 679147 116000) "code/" "main.tex" "figure/" "main.pdf" "biblio.bib" "../" "./")
+
+ ("/Users/hmmitche/thesis/final/chapter/" (24229 34297 306356 26000) "lit_review.tex" "methods_section/" "results_section/" "figures.tex" "methods.tex" "conclusion_section/" "results.tex" "intro_section/" "conclusion.tex" "lit_review_section/" "acknowledgments.tex" "intro.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/final/chapter/results_section/" (24229 34297 306662 783000) "chimera.tex" "aphysical.tex" "model.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/final/chapter/lit_review_section/" (24229 34297 305363 938000) "bifurcation.tex" "chimera.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/final/chapter/intro_section/" (24229 34297 304882 884000) "chimera.tex" "seizures.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/final/chapter/methods_section/" (24229 34297 306091 13000) "implementation.tex" "network.tex" "model.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/final/" (24229 34297 443666 786000) "ms.bib" "ws-ijbc.bst" "lead.tex" "chapter/" "ms.tex" "code/" "abstract.tex" "figure/" "ws-ijbc.cls" "ms.pdf" "../" "./")
+
+ ("/Users/hmmitche/thesis/IJBC/chapter/intro_section/" (24229 34296 689877 795000) "chimera.tex" "seizures.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/IJBC/chapter/lit_review_section/" (24229 34296 690957 510000) "bifurcation.tex" "chimera.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/IJBC/auto/" (24232 19608 746427 401000) "chimera.el" "model.el" "bifurcation.el" "lit_review.el" "ms.el" "seizures.el" "../" "./")
+
+ ("/Users/hmmitche/JHU/ME/990/505/papers/" (24231 18257 16127 922000) "Winhusen2010.pdf" "word.xml" "Wilens2015.pdf" "Gobbi2019.pdf" "Dahlgren2015.pdf" "Witkiewitz2017.pdf" "Young2015.pdf" "Adisetiyo2017.pdf" "papers.bib" "Gray2011.pdf" "Ameringer2013.pdf" "Knox2019.pdf" "Hasin2017.pdf" "Charach2010.pdf" "Silins2014.pdf" "Filbey2014.pdf" "bib.xml" "auto/" "Witkiewitz2018.pdf" "Alameda-Bailen2018.pdf" "Riggs2011.pdf" "../" "./")
+
+ ("/Users/hmmitche/thesis/IJBC/" (24232 20549 681485 61000) "ms.fdb_latexmk" "ms.bib" "ws-ijbc.bst" "ms.log" "ms.aux" "ms.blg" "ms.fls" "chapter/" "ms.tex" "abstract.tex" "figure/" "ms.out" "ws-ijbc.cls" "auto/" "ms.bbl" "ms.pdf" "../" "./")
+
+ ("/Users/hmmitche/Documents/resume/" (24232 31231 198476 905000) "resume.log" "resume.pdf" "auto/" "resume.tex" "../" "./")
+
+ ("/Users/hmmitche/dev/elisp/" (24234 2663 738622 988000) "test_init.el" "agenda_init.el" "test_init.el~" "../" "./")
+
+ ("/Users/hmmitche/thesis/IJBC/chapter/methods_section/" (24232 19011 8691 773000) "implementation.tex" "network.tex" "model.tex" "../" "./")
+
+ ("/Users/hmmitche/thesis/IJBC/chapter/" (24229 34296 692418 889000) "lit_review.tex" "methods_section/" "results_section/" "figures.tex" "methods.tex" "conclusion_section/" "results.tex" "intro_section/" "conclusion.tex" "lit_review_section/" "acknowledgments.tex" "intro.tex" "../" "./")
+
+ ("/Users/hmmitche/Documents/" (24228 38705 811851 741000) "Zoom/" "bubbles.nb" "recipes/" "ideas.pdf" "ideas.org" "resume/" "papers/" "../" "./")
+
+ ("/Users/hmmitche/JHU/ME/990/" (24217 51521 125601 942000) "505/" "../" "./")
+
+ ("/Users/hmmitche/JHU/" (24229 62277 814137 930000) "misc.org" ".git/" "README.org" "AS/" ".gitattributes" "remote_cron" "ME/" ".gitignore" "../" "./")
+
+ ("/Users/hmmitche/thesis/" (24229 34298 744744 810000) "SRC/" ".git/" "defense/" "final/" "DD/" ".gitignore" "proposal/" "README.md" "IJBC/" "thesis.org" "code/" "papers/" "../" "./")
+
+ ("/Users/hmmitche/JHU/AS/020/154/" (24224 41807 252711 831000) "AS_020_154.org" "manual.pdf" "code/" "figure/" "HW/" "../" "./")
+
+ ("/Users/hmmitche/JHU/AS/280/340/" (24223 41332 154603 53000) "syllabus.pdf" "data/" "readings/" "AS_280_340.pdf" "AS_280_340.org" "HW/" "AS_280_340.tex" "../" "./")
+
+ ("/Users/hmmitche/JHU/AS/280/340/HW/02/" (24205 5314 899370 824000) "main.tex" "main.pdf" "main.org" "../" "./")
+
+ ("/Users/hmmitche/Documents/papers/" (24205 61462 986483 774000) "West1987.pdf" "Ott2018.pdf" "Manicka2019.pdf" "Nisoli2009.pdf" "Nishikawa2016.pdf" "Galam2019.pdf" "papers.bib" "Ma2019.pdf" "Kuperman2019.pdf" "Marasco2020.pdf" "Zhang2020.pdf" "auto/" "Chaplain2019.pdf" "Ronellenfitsch2019.pdf" "../" "./")
+
+ ("/Users/hmmitche/Documents/recipes/" (24221 39507 315880 994000) "sourdough.pdf" "recipes.org" "frosting.jpg" "cake.jpg" "../" "./")
+
+ ("/Users/hmmitche/JHU/AS/020/154/HW/report/" (24224 41529 641713 506000) "main.tex" "main.pdf" "main.org" "../" "./")
+
+ ("/Users/hmmitche/JHU/AS/020/154/HW/" (24205 11404 587305 628000) "13/" "12/" "report/" "06/" "01/" "08/" "09/" "07/" "10/" "11/" "02/" "05/" "04/" "03/" "../" "./")
 
  ("/Users/hmmitche/dev/python/sandbox/" (24203 12707 578099 554000) ".ipynb_checkpoints/" "ani.mp4" "weather.py" "covid.ipynb" "bubbles.ipynb" "../" "./")
 
- ("/Users/hmmitche/JHU/AS/200/141/" (24202 4094 473511 598000) "AS_200_141.org" "AS_200_141.pdf" "AS_200_141.tex" "../" "./")
-
  ("/Users/hmmitche/bin/bash/" (24191 33402 209772 541000) "backupschool" "start_emacs" "tex-sync" "cleantex" "run_once" "kill_emacs" "../" "./")
-
- ("/Users/hmmitche/JHU/AS/020/305/" (24203 22416 225601 180000) "AS_020_305.org" "code/" "AS_020_305.pdf" "figure/" "AS_020_305.tex" "../" "./")
 
  ("/Users/hmmitche/JHU/AS/280/340/HW/01/" (24186 42058 782770 503000) "main.tex" "main.pdf" "main.org" "../" "./")
 
- ("/Users/hmmitche/apps/" (24193 12981 153389 951000) "ps.txt" "ps.org" "ps.scriv/" "ps.docx" "../" "./")
-
- ("/Users/hmmitche/JHU/AS/280/340/" (24202 3960 901608 331000) "syllabus.pdf" "data/" "readings/" "AS_280_340.pdf" "AS_280_340.org" "HW/" "AS_280_340.tex" "../" "./")
-
- ("/Users/hmmitche/JHU/" (24204 38505 118976 594000) "misc.org" ".git/" "README.org" "AS/" ".gitattributes" "remote_cron" "ME/" ".gitignore" "../" "./")
-
  ("/Users/hmmitche/JHU/AS/280/340/HW/03/" (24195 36938 208944 431000) "main.tex" "main.pdf" "main.org" "../" "./")
-
- ("/Users/hmmitche/thesis/IJBC/" (24199 56682 152010 649000) "ms.bib" "ws-ijbc.bst" "chapter/" "ms.tex" "abstract.tex" "figure/" "ws-ijbc.cls" "auto/" "ms.pdf" "../" "./")
-
- ("/Users/hmmitche/Todo/life/" (24199 43521 728151 822000) "birthdays.org" "list.org" "../" "./")
 
  ("/Users/hmmitche/dev/docker/unoconv/" (24198 32648 646898 81000) "Dockerfile" "../" "./")
 
  ("/Users/hmmitche/dev/" (23977 49384 131723 95000) "ruby/" "c/" ".git/" "julia/" "Jenkinsfile" "cpp/" ".gitignore" "elisp/" "python/" "Project_Euler/" "go/" "docker/" "../" "./")
 
  ("/Users/hmmitche/dev/docker/" (23977 49423 47417 310000) "unoconv/" "../" "./")
-
- ("/Users/hmmitche/thesis/IJBC/chapter/intro_section/" (24198 29212 494518 108000) "chimera.tex" "seizures.tex" "../" "./")
-
- ("/Users/hmmitche/thesis/IJBC/chapter/" (24198 28578 95595 352000) "lit_review.tex" "methods_section/" "results_section/" "figures.tex" "methods.tex" "conclusion_section/" "results.tex" "intro_section/" "conclusion.tex" "lit_review_section/" "acknowledgments.tex" "intro.tex" "../" "./")
-
- ("/Users/hmmitche/thesis/" (24198 26203 627948 336000) "SRC/" ".git/" "defense/" "final/" "DD/" ".gitignore" "proposal/" "README.md" "IJBC/" "thesis.org" "code/" "papers/" "../" "./")
 
  ("/Users/hmmitche/JHU/AS/280/340/HW/04/" (24195 36621 745584 104000) "main.tex" "main.pdf" ".#main.org" "main.org" "../" "./")
 
@@ -216,10 +252,6 @@
  ("/Applications/Emacs.app/Contents/Resources/" (23916 48748 0 0) "Emacs.icns" "Credits.html" "site-lisp/" "info/" "etc/" "include/" "document.icns" "lisp/" "English.lproj/" "man/" "../" "./")
 
  ("/Applications/Emacs.app/Contents/Resources/lisp/" (23916 48747 0 0) "pcmpl-x.el.gz" "vcursor.el.gz" "bs.el.gz" "hexl.el.gz" "soundex.elc" "wdired.el.gz" "rect.el.gz" "help-mode.elc" "tooltip.el.gz" "shadowfile.el.gz" "bs.elc" "emacs-lock.el.gz" "array.el.gz" "image-file.el.gz" "autoinsert.elc" "iimage.el.gz" "pcomplete.el.gz" "wid-edit.el.gz" "profiler.elc" "case-table.elc" "novice.elc" "emacs-lisp/" "epa-mail.el.gz" "help-fns.el.gz" "misc.elc" "international/" "makesum.elc" "mpc.elc" "minibuf-eldef.el.gz" "svg.elc" "hfy-cmap.elc" "userlock.el.gz" "scroll-bar.elc" "savehist.el.gz" "proced.elc" "rtree.elc" "w32-vars.elc" "progmodes/" "button.elc" "tabify.elc" "autoinsert.el.gz" "dirtrack.elc" "reposition.el.gz" "edmacro.elc" "ps-print.elc" "align.el.gz" "proced.el.gz" "mb-depth.el.gz" "tutorial.el.gz" "locate.el.gz" "forms.elc" "format.elc" "scroll-bar.el.gz" "elec-pair.el.gz" "mwheel.el.gz" "tabify.el.gz" "font-core.elc" "epa-mail.elc" "md4.el.gz" "composite.el.gz" "auth-source.el.gz" "image.elc" "icomplete.elc" "display-line-numbers.elc" "thingatpt.elc" "ecomplete.el.gz" "ehelp.el.gz" "char-fold.elc" "dynamic-setting.elc" "locate.elc" "sb-image.elc" "info-xref.el.gz" "font-core.el.gz" "ffap.elc" "format.el.gz" "paren.elc" "edmacro.el.gz" "tmm.el.gz" "vt-control.elc" "ezimage.elc" "kermit.el.gz" "obarray.el.gz" "ldefs-boot.el" "jit-lock.elc" "play/" "frame.elc" "cus-face.elc" "format-spec.el.gz" "uniquify.el.gz" "mouse-copy.elc" "auth-source.elc" "select.elc" "cmuscheme.el.gz" "indent.el.gz" "msb.el.gz" "view.el.gz" "whitespace.elc" "filesets.elc" "ps-def.elc" "foldout.el.gz" "woman.elc" "find-dired.el.gz" "skeleton.elc" "sb-image.el.gz" "htmlfontify.el.gz" "hippie-exp.elc" "facemenu.el.gz" "pcmpl-rpm.elc" "widget.elc" "iimage.elc" "calculator.el.gz" "expand.el.gz" "display-line-numbers.el.gz" "loadhist.elc" "jka-cmpr-hook.elc" "minibuffer.elc" "find-cmd.el.gz" "informat.elc" "loadhist.el.gz" "erc/" "md4.elc" "midnight.el.gz" "ps-bdf.elc" "w32-fns.elc" "pcmpl-unix.elc" "cdl.elc" "completion.elc" "dom.elc" "hex-util.el.gz" "talk.el.gz" "scroll-lock.el.gz" "ielm.elc" "recentf.el.gz" "ecomplete.elc" "info-look.elc" "dos-vars.elc" "lpr.el.gz" "isearch.el.gz" "filenotify.el.gz" "forms.el.gz" "reveal.elc" "help-fns.elc" "ibuffer.elc" "dired.el.gz" "subr.el.gz" "files.el.gz" "pcmpl-gnu.elc" "misearch.elc" "chistory.elc" "env.el.gz" "hi-lock.el.gz" "help-at-pt.el.gz" "custom.el.gz" "view.elc" "ibuffer-loaddefs.el" "sort.elc" "autoarg.elc" "ses.elc" "ps-def.el.gz" "comint.el.gz" "hi-lock.elc" "find-dired.elc" "x-dnd.elc" "plstore.el.gz" "image.el.gz" "startup.el.gz" "notifications.elc" "minibuffer.el.gz" "w32-fns.el.gz" "htmlfontify.elc" "thumbs.el.gz" "whitespace.el.gz" "t-mouse.elc" "epg-config.el.gz" "hilit-chg.elc" "misc.el.gz" "time-stamp.elc" "color.elc" "recentf.elc" "linum.el.gz" "startup.elc" "pixel-scroll.elc" "face-remap.elc" "cus-load.el" "xt-mouse.elc" "elide-head.elc" "ps-print-loaddefs.el" "outline.elc" "newcomment.el.gz" "xt-mouse.el.gz" "ruler-mode.el.gz" "follow.el.gz" "userlock.elc" "allout.elc" "descr-text.elc" "registry.el.gz" "mwheel.elc" "timezone.elc" "json.el.gz" "rtree.el.gz" "cus-dep.el.gz" "pcomplete.elc" "informat.el.gz" "ielm.el.gz" "wid-browse.el.gz" "apropos.el.gz" "timezone.el.gz" "files-x.el.gz" "server.el.gz" "faces.el.gz" "epa-file.el.gz" "ehelp.elc" "makesum.el.gz" "dired-loaddefs.el" "ibuf-ext.elc" "mouse.elc" "time.el.gz" "help-macro.elc" "man.elc" "dabbrev.elc" "mouse.el.gz" "rot13.elc" "saveplace.elc" "vc/" "autorevert.elc" "allout-widgets.el.gz" "COPYING" "info.el.gz" "generic-x.elc" "foldout.elc" "pcmpl-gnu.el.gz" "replace.elc" "dframe.elc" "apropos.elc" "bookmark.elc" "tool-bar.elc" "delim-col.el.gz" "help.elc" "help-macro.el.gz" "version.elc" "isearchb.el.gz" "ps-bdf.el.gz" "paren.el.gz" "cus-face.el.gz" "bindings.el.gz" "mouse-copy.el.gz" "epa-hook.elc" "window.elc" "pcmpl-rpm.el.gz" "menu-bar.el.gz" "pixel-scroll.el.gz" "dos-fns.elc" "ffap.el.gz" "plstore.elc" "thingatpt.el.gz" "epa-hook.el.gz" "cedet/" "tmm.elc" "epa-dired.elc" "face-remap.el.gz" "help.el.gz" "ps-mule.elc" "filenotify.elc" "pcmpl-cvs.elc" "version.el.gz" "dired-aux.el.gz" "abbrev.elc" "delsel.el.gz" "cus-theme.elc" "calc/" "calculator.elc" "disp-table.el.gz" "ls-lisp.elc" "hl-line.elc" "register.el.gz" "lpr.elc" "epa-file.elc" "ps-print.el.gz" "simple.elc" "ibuf-ext.el.gz" "faces.elc" "generic-x.el.gz" "delim-col.elc" "man.el.gz" "reveal.el.gz" "image/" "cus-dep.elc" "url/" "README" "echistory.el.gz" "midnight.elc" "term.el.gz" "tempo.el.gz" "dired-aux.elc" "leim/" "ibuf-macs.elc" "frameset.elc" "abbrev.el.gz" "strokes.elc" "repeat.elc" "help-mode.el.gz" "dirtrack.el.gz" "mh-e/" "facemenu.elc" "cus-edit.elc" "echistory.elc" "w32-vars.el.gz" "xml.elc" "strokes.el.gz" "find-cmd.elc" "pcmpl-linux.elc" "speedbar.el.gz" "kmacro.elc" "hfy-cmap.el.gz" "pcmpl-cvs.el.gz" "language/" "misearch.el.gz" "linum.elc" "filecache.el.gz" "find-lisp.elc" "simple.el.gz" "master.el.gz" "tutorial.elc" "shell.el.gz" "rect.elc" "dynamic-setting.el.gz" "xwidget.elc" "battery.el.gz" "t-mouse.el.gz" "menu-bar.elc" "char-fold.el.gz" "pcmpl-unix.el.gz" "x-dnd.el.gz" "ebuff-menu.el.gz" "vt100-led.elc" "isearch.elc" "mouse-drag.elc" "scroll-lock.elc" "find-file.elc" "vcursor.elc" "hexl.elc" "hilit-chg.el.gz" "ls-lisp.el.gz" "finder-inf.el" "subr.elc" "xml.el.gz" "env.elc" "fringe.elc" "kermit.elc" "mouse-drag.el.gz" "obarray.elc" "emacs-lock.elc" "register.elc" "ps-samp.el.gz" "epg-config.elc" "files.elc" "hl-line.el.gz" "tar-mode.elc" "flow-ctrl.el.gz" "password-cache.el.gz" "buff-menu.el.gz" "auth-source-pass.elc" "disp-table.elc" "pcmpl-linux.el.gz" "dired.elc" "scroll-all.elc" "avoid.elc" "tree-widget.el.gz" "term/" "case-table.el.gz" "uniquify.elc" "repeat.el.gz" "notifications.el.gz" "doc-view.el.gz" "windmove.el.gz" "skeleton.el.gz" "info-xref.elc" "delsel.elc" "ansi-color.elc" "newcomment.elc" "pcmpl-x.elc" "isearchb.elc" "type-break.elc" "image-dired.elc" "select.el.gz" "profiler.el.gz" "icomplete.el.gz" "emulation/" "term.elc" "macros.elc" "windmove.elc" "jit-lock.el.gz" "htmlfontify-loaddefs.el" "reposition.elc" "printing.elc" "bookmark.el.gz" "hex-util.elc" "composite.elc" "frame.el.gz" "tooltip.elc" "kmacro.el.gz" "elide-head.el.gz" "mail/" "org/" "image-file.elc" "tempo.elc" "arc-mode.elc" "avoid.el.gz" "ps-samp.elc" "align.elc" "imenu.elc" "window.el.gz" "wdired.elc" "ses.el.gz" "scroll-all.el.gz" "sort.el.gz" "master.elc" "desktop.el.gz" "array.elc" "registry.elc" "electric.elc" "format-spec.elc" "cus-edit.el.gz" "custom.elc" "autorevert.el.gz" "password-cache.elc" "textmodes/" "electric.el.gz" "flow-ctrl.elc" "speedbar.elc" "svg.el.gz" "vt-control.el.gz" "loaddefs.el" "autoarg.el.gz" "allout.el.gz" "frameset.el.gz" "nxml/" "allout-widgets.elc" "dnd.elc" "buff-menu.elc" "button.el.gz" "wid-edit.elc" "winner.el.gz" "server.elc" "rot13.el.gz" "dired-x.el.gz" "outline.el.gz" "epg.el.gz" "cus-start.el.gz" "printing.el.gz" "macros.el.gz" "font-lock.elc" "arc-mode.el.gz" "desktop.elc" "color.el.gz" "expand.elc" "time.elc" "subdirs.el" "dos-w32.el.gz" "double.elc" "obsolete/" "cus-start.elc" "ezimage.el.gz" "shell.elc" "jka-compr.el.gz" "epa.elc" "descr-text.el.gz" "ps-mule.el.gz" "elec-pair.elc" "follow.elc" "mpc.el.gz" "image-mode.el.gz" "image-mode.elc" "find-file.el.gz" "bindings.elc" "thumbs.elc" "dos-fns.el.gz" "eshell/" "finder.el.gz" "info-look.el.gz" "calendar/" "auth-source-pass.el.gz" "talk.elc" "ibuffer.el.gz" "net/" "comint.elc" "vt100-led.el.gz" "tree-widget.elc" "json.elc" "tar-mode.el.gz" "jka-cmpr-hook.el.gz" "winner.elc" "saveplace.el.gz" "tool-bar.el.gz" "filesets.el.gz" "time-stamp.el.gz" "gnus/" "mb-depth.elc" "cdl.el.gz" "minibuf-eldef.elc" "xdg.el.gz" "dnd.el.gz" "xdg.elc" "jka-compr.elc" "files-x.elc" "dos-vars.el.gz" "rfn-eshadow.el.gz" "fringe.el.gz" "epa-dired.el.gz" "dired-x.elc" "ibuf-macs.el.gz" "info.elc" "type-break.el.gz" "replace.el.gz" "ido.el.gz" "shadowfile.elc" "soundex.el.gz" "filecache.elc" "dframe.el.gz" "widget.el.gz" "savehist.elc" "chistory.el.gz" "epa.el.gz" "dom.el.gz" "find-lisp.el.gz" "xwidget.el.gz" "wid-browse.elc" "novice.el.gz" "double.el.gz" "hippie-exp.el.gz" "epg.elc" "ido.elc" "loadup.el" "cus-theme.el.gz" "woman.el.gz" "indent.elc" "msb.elc" "dabbrev.el.gz" "ruler-mode.elc" "finder.elc" "completion.el.gz" "help-at-pt.elc" "ansi-color.el.gz" "doc-view.elc" "ebuff-menu.elc" "cmuscheme.elc" "font-lock.el.gz" "rfn-eshadow.elc" "imenu.el.gz" "dos-w32.elc" "image-dired.el.gz" "battery.elc" "../" "./")
-
- ("/Users/hmmitche/JHU/AS/" (24164 21020 628888 308000) "200/" "020/" "280/" "../" "./")
-
- ("/Users/hmmitche/thesis/final/" (24185 19740 252310 765000) "ms.bib" "ws-ijbc.bst" "lead.tex" "chapter/" "ms.tex" "code/" "abstract.tex" "figure/" "workdir/" "ws-ijbc.cls" "ms.pdf" "../" "./")
 
  ("/Users/hmmitche/dev/ruby/sandbox/card_games/" (24185 16683 920111 263000) "deck.rb" "aces_up.rb" "card.rb" "../" "./")
 
@@ -251,27 +283,9 @@
 
  ("/Users/hmmitche/dev/ruby/utility/alarm/" (24100 38744 165951 544000) "auth.rb" "alarm.rb" "../" "./")
 
- ("/Users/hmmitche/thesis/final/chapter/" (24129 48088 403645 385000) "lit_review.tex" "methods_section/" "results_section/" "figures.tex" "methods.tex" "conclusion_section/" "results.tex" "intro_section/" "conclusion.tex" "lit_review_section/" "acknowledgments.tex" "intro.tex" "../" "./")
-
- ("/Users/hmmitche/thesis/final/chapter/results_section/" (24129 48088 406309 58000) "chimera.tex" "aphysical.tex" "model.tex" "../" "./")
-
- ("/Users/hmmitche/thesis/final/chapter/lit_review_section/" (24129 48088 398381 51000) "bifurcation.tex" "chimera.tex" "../" "./")
-
- ("/Users/hmmitche/thesis/final/chapter/intro_section/" (24129 48088 394427 824000) "chimera.tex" "seizures.tex" "../" "./")
-
- ("/Users/hmmitche/thesis/final/chapter/methods_section/" (24129 48088 402457 62000) "implementation.tex" "network.tex" "model.tex" "../" "./")
-
  ("/Users/hmmitche/JHU/AS/020/154/HW/05/" (24161 7288 306821 469000) "main.tex" "main.pdf" "main.org" "../" "./")
 
- ("/Users/hmmitche/JHU/AS/020/154/HW/" (24115 29158 115818 341000) "13/" "12/" "06/" "01/" "08/" "09/" "07/" "10/" "11/" "02/" "05/" "04/" "03/" "../" "./")
-
- ("/Users/hmmitche/tmp/" (24154 51559 330896 54000) "elpa/" "example.org" "init.el" "tmp.tex" "init.el~" "../" "./")
-
- ("/Users/hmmitche/dev/elisp/" (24148 15340 15388 800000) "test_init.el" "agenda_init.el" "test_init.el~" "../" "./")
-
  ("/Users/hmmitche/JHU/ME/" (23910 60815 0 0) "990/" "../" "./")
-
- ("/Users/hmmitche/JHU/ME/990/" (23910 60815 0 0) "505/" "../" "./")
 
  ("/Users/hmmitche/JHU/AS/280/340/HW/" (24120 52303 19115 895000) "01/" "02/" "05/" "04/" "03/" "../" "./")
 
@@ -285,19 +299,13 @@
 
  ("/Users/hmmitche/Downloads/ijbc-2e/" (24107 3226 931934 964000) "ijbcf1.eps" "ws-ijbc.bst" "ijbcf2.eps" "ws-ijbc_bib.pdf" "ws-ijbc_bib.tex" "ws-rotating.sty" "sample.bib" "ws-ijbc.pdf" "ws-ijbc.cls" "ws-ijbc.tex" "epsfsafe.tex" "../" "./")
 
- ("/Users/hmmitche/thesis/DD/" (24080 62213 719972 970000) "code/" "main.tex" "figure/" "main.pdf" "biblio.bib" "../" "./")
-
  ("/Users/hmmitche/dev/ruby/" (22820 44007 0 0) "utility/" "sandbox/" "org/" "../" "./")
 
  ("/Users/hmmitche/Todo/" (24008 26675 246720 182000) "school/" "life/" "../" "./")
 
  ("/Users/hmmitche/Todo/school/" (24075 50995 246673 701000) "AS_200_141.org" "AS_020_152.org" "misc.org" "AS_020_154.org" "ME_990_505.org" "AS_020_305.org" "thesis.org" "AS_280_340.org" "../" "./")
 
- ("/Users/hmmitche/JHU/AS/020/" (24075 50754 567301 281000) "305/" "152/" "154/" "../" "./")
-
  ("/Users/hmmitche/JHU/AS/280/" (24075 49997 112944 99000) "340/" "../" "./")
-
- ("/Users/hmmitche/JHU/AS/200/" (24075 49158 248075 938000) "141/" "../" "./")
 
  ("/Users/hmmitche/thesis/defense/" (24062 27815 850429 966000) "code/" "main.tex" "figure/" "main.pdf" "biblio.bib" "../" "./")
 
@@ -332,14 +340,6 @@
  ("/Users/hmmitche/bin/" (23604 53384 0 0) "ruby/" ".git/" "README.md" "bash/" "perl/" "sed/" "../" "./")
 
  ("/Users/" (23984 61998 0 0) "hmmitche/" "Shared/" ".localized" "../" "./")
-
- ("/Users/hmmitche/JHU/AS/020/153/" (24006 59368 355041 377000) "AS_020_153.org" "HW/" "../" "./")
-
- ("/Users/hmmitche/JHU/AS/030/225/HW/01/" (24005 57649 933702 48000) "main.bib" "acs-main.bib" "main.tex" "main.pdf" "section/" "../" "./")
-
- ("/Users/hmmitche/.jupyter/nbconfig/" (22977 34998 0 0) "notebook.json" "../" "./")
-
- ("/Users/hmmitche/.jupyter/lab/user-settings/@jupyterlab/" (23694 35761 0 0) "apputils-extension/" "codemirror-extension/" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----
