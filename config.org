@@ -617,18 +617,15 @@
        :ensure t)
    #+END_SRC
 * My own code
-** TODO Move the current line down
+** DONE Move the current line down
    #+BEGIN_SRC emacs-lisp
      (defun hmm-lower-line ()
        "Add a line above, without moving point"
        (interactive "*")
        (let ((col (current-column)))
-	 (evil-open-above 1)
-	 (evil-next-line)
-	 (move-to-column col)
-	 (evil-forward-char)
-	 (evil-force-normal-state))
-       nil)
+	 (beginning-of-line)
+	 (newline)
+	 (move-to-column col)))
    #+END_SRC
 
 ** TODO Add a current timestamp to a TeX file
