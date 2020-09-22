@@ -1,19 +1,7 @@
-(package-initialize)
 (server-start)
 (defun raise-emacs-on-aqua()
   (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
 (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
-
-(require 'package)
-
-(setq package-enable-at-startup nil)
-
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("org" . "https://orgmode.org/elpa/") t)
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
@@ -23,37 +11,38 @@
 (defvar backup-dir "~/.emacs.d/backups")
 (setq backup-directory-alist (list (cons "." backup-dir)))
 (setq make-backup-files nil)
-(server-start)
-
-
-;; Universal preferences
+(setq ispell-program-name "/usr/local/bin/aspell")
 
 ;;;; Function
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (global-auto-revert-mode 1)
-
 (setq shell-multiple-shells t)
 
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq auto-save-default nil)
 ;; When editing symlinks, allow Emacs to access Git things
-(setq vc-follow-symlinks 0)
+(setq vc-follow-symlinks t)
 ;; *scratch* buffers start in org mode
 (setq initial-major-mode 'org-mode)
+(setq default-major-mode 'org-mode)
 
 (add-to-list 'write-file-functions 'delete-trailing-whitespace)
 
+(setq echo-keystrokes 0.02)
+
+(put 'narrow-to-page 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (setq-default dired-listing-switches "-alGFh")
 
-(setq ispell-program-name "/usr/local/bin/aspell")
 (setq browse-url-mailto-function 'browse-url-generic)
 (setq browse-url-generic-program "open")
 (setq ns-pop-up-frames nil)
 (setq message-log-max t)
 (setq ok-if-already-exists t)
+
 
 ;; Restoring sessions
 (setq desktop-save 'if-exists)
@@ -75,8 +64,22 @@
 		tags-file-name
 		register-alist)))
 
+(when (>= emacs-major-version 27)
+  (setq what-cursor-show-names 1)
+  (setq auto-save-no-message 1)
+  (global-tab-line-mode 1))
 
-;;;; Appearance
+(global-font-lock-mode 1)
+(global-hl-line-mode 1)
+(column-number-mode 1)
+(global-display-line-numbers-mode 1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(blink-cursor-mode -1)
+(setq prettify-symbols-unprettify-at-point 'right-edge)
+(global-prettify-symbols-mode)
+(fringe-mode '(0 . 0))
 
 ;; Startup
 (setq inhibit-splash-screen 1)
@@ -85,6 +88,7 @@
 (setq truncate-partial-width-windows 20)
 (setq-default truncate-lines nil)
 (add-to-list 'default-frame-alist '(font . "Andale Mono-12"))
+(set-fontset-font "fontset-default" 'unicode "Apple Color Emoji" nil 'prepend)
 (add-to-list 'default-frame-alist '(left-fringe . 0))
 (add-hook 'after-init-hook '(lambda () (org-agenda nil "n")))
 
@@ -97,20 +101,9 @@
 (setq ring-bell-function 'ignore)
 (setq redisplay-dont-pause 1)
 
-(global-font-lock-mode 1)
-(global-hl-line-mode 1)
-
 (setq-default display-line-numbers-type 'visual)
 (setq-default display-line-numbers-current-absolute t)
 (setq-default display-line-numbers-widen t)
-
-(column-number-mode 1)
-(global-display-line-numbers-mode 1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(blink-cursor-mode -1)
-(global-prettify-symbols-mode 1)
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 (eval-after-load "hideshow"
@@ -121,7 +114,15 @@
 		  ,(rx (or "#" "=begin"))                        ; Comment start
 		  ruby-forward-sexp nil)))
 
-;; Packages
+(setq package-enable-at-startup nil)
+
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("org" . "https://orgmode.org/elpa/") t)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -129,7 +130,66 @@
 (eval-when-compile
   (require 'use-package))
 
-(use-package tex
+(use-package org
+  :ensure org-plus-contrib
+  ;; :pin org
+  :ensure auctex
+  :ensure htmlize
+  :config
+  (require 'ox-extra)
+  (require 'ol-zoommtg)
+  (require 'org-tempo)
+  (require 'latex)
+  (ox-extras-activate '(ignore-headlines))
+  ;; (setcar org-emphasis-regexp-components " \t('\"{[:alpha:]")
+  ;; (setcar (nthcdr 1 org-emphasis-regexp-components) "[:alpha:]- \t.,:!?;'\")}\\")
+  ;; (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'turn-on-flyspell)
+  (add-hook 'org-mode-hook 'highlight-symbol-mode)
+  (add-hook 'org-mode-hook 'LaTeX-math-mode)
+  (add-hook 'org-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'org-mode-hook (lambda ()
+			     (setq-local electric-pair-pairs (append
+							      electric-pair-pairs
+							      '((?\$ . ?\$))))))
+  (add-hook 'org-mode-hook (lambda ()
+			     (modify-syntax-entry ?< "_")))
+  (add-hook 'org-mode-hook (lambda ()
+			     (modify-syntax-entry ?> "_")))
+  (add-hook 'org-mode-hook (lambda ()
+			     (setq ispell-extra-args '("-t"))))
+  (setq org-agenda-files
+	'("~/Todo/school/" "~/Todo/life" "~/Todo/work" "~/apps/apps.org"))
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-span 7)
+  (setq org-agenda-start-day "0d")
+  (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-todo-ignore-deadlines t)
+  (setq org-agenda-hide-tags-regexp "ignore\\|noexport")
+  (setq org-blank-before-new-entry
+	'((heading . t) (plain-list-item . auto)))
+  (setq org-todo-keywords
+	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
+  (setq org-deadline-warning-days 4)
+  (setq org-export-in-background t)
+  (setq org-link-file-path-type 'adaptive)
+  (setq org-log-done 'time)
+  (setq org-pretty-entities 1))
+(setq org-src-tab-acts-natively t)
+(org-reload)
+
+(use-package diminish
+  :ensure t
+  :config
+  (diminish 'flyspell-mode)
+  (diminish 'highlight-symbol-mode)
+  (diminish 'visual-line-mode)
+  (diminish 'reftex-mode)
+  (diminish 'iimage-mode)
+  (diminish 'abbrev-mode))
+
+(use-package latex
   :defer 1
   :ensure auctex
   :config
@@ -137,9 +197,9 @@
   (setq-default TeX-master "../main")
   (setq-default TeX-PDF-mode t)
   (setq TeX-parse-self t)
-  (setq TeX-auto-save t)
   (setq TeX-auto-untabify t)
   (setq TeX-insert-braces nil)
+  (setq TeX-source-correlate-mode t)
 
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook 'reftex-mode)
@@ -159,7 +219,9 @@
   (add-to-list 'auto-mode-alist '("\\.sty\\'" . LaTeX-mode))
   (add-to-list 'auto-mode-alist '("\\.bbl\\'" . LaTeX-mode))
 
-  (setq LaTeX-electric-left-right-brace t)
+  (add-to-list 'safe-local-variable-values '(TeX-command-extra-options . (regexp-quote "-jobname='[^']*'")))
+
+  (setq LaTeX-electric-left-right-brace nil)
 
   (setq LaTeX-math-list
 	'((?, "qc" "" nil)
@@ -178,9 +240,6 @@
   :ensure t
   :config
   (exec-path-from-shell-initialize))
-
-(use-package which-key
-  :ensure t)
 
 (use-package evil
   :ensure t
@@ -217,6 +276,7 @@
 (use-package evil-commentary
   :requires evil
   :ensure t
+  :diminish
   :config
   (evil-commentary-mode)
   (add-hook 'LaTeX-mode-hook (lambda () (setq comment-start "%% "))))
@@ -238,19 +298,28 @@
 (use-package evil-goggles
   :requires evil
   :ensure t
+  :diminish
   :config
   (setq evil-goggles-duration 0.100)
   (evil-goggles-mode))
 
+(use-package evil-indent-plus
+  :ensure t
+  :config
+  (evil-indent-plus-default-bindings))
+
 (use-package ivy
   :ensure t
+  :diminish
   :config
   (ivy-mode 1))
 
 (use-package swiper
+  :diminish
   :ensure t)
 
 (use-package counsel
+  :diminish
   :ensure t
   :config
   (counsel-mode 1))
@@ -268,40 +337,9 @@
   :config
   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
 
-(use-package org
-  :ensure org-plus-contrib
-  :config
-  (require 'ox-extra)
-  (require 'ol-zoommtg)
-  (require 'tex)
-  (ox-extras-activate '(ignore-headlines))
-  (add-hook 'org-mode-hook 'visual-line-mode)
-  (add-hook 'org-mode-hook 'turn-on-flyspell)
-  (add-hook 'org-mode-hook 'highlight-symbol-mode)
-  (add-hook 'org-mode-hook 'LaTeX-math-mode)
-  (add-hook 'org-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'org-mode-hook (lambda ()
-			     (setq-local electric-pair-pairs (append
-							      electric-pair-pairs
-							      '((?\$ . ?\$))))))
-  (setq org-agenda-files
-	'("~/Todo/school/" "~/Todo/life" "~/apps/apps.org"))
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-span 7)
-  (setq org-agenda-start-day "0d")
-  (setq org-agenda-start-on-weekday nil)
-  (setq org-agenda-todo-ignore-deadlines t)
-  (setq org-agenda-hide-tags-regexp "ignore\\|noexport")
-  (setq org-todo-keywords
-	'((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
-  (setq org-deadline-warning-days 4)
-  (setq org-export-in-background t)
-  (setq org-link-file-path-type 'adaptive)
-  (setq org-log-done 'time)
-  (setq org-pretty-entities 1))
-
 (use-package which-key
-  :defer 1
+  :ensure t
+  :diminish
   :config
   (which-key-mode 1))
 
@@ -330,6 +368,7 @@
 
 (use-package undo-tree
   :ensure t
+  :diminish
   :config
   (global-undo-tree-mode))
 
@@ -350,7 +389,9 @@
 (use-package magic-latex-buffer
   :ensure t
   :config
-  (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
+  (add-hook 'LaTeX-mode-hook 'magic-latex-buffer)
+  (when (require 'diminish nil 'noerror)
+    (diminish 'magic-latex-buffer)))
 
 (use-package julia-mode
   :defer 1
@@ -372,19 +413,16 @@
   (setq ido-default-buffer-method 'selected-window)
   (setq ido-enable-flex-matching t))
 
-(use-package evil-indent-plus
-  :ensure t
-  :config
-  (evil-indent-plus-default-bindings))
-
 (use-package csv-mode
   :ensure t)
 
+(use-package htmlize
+  :ensure t)
 
 (general-define-key ;; General
  :states '(normal visual)
  "<down>" 'evil-next-visual-line
- "<return>" 'hmm-lower-line
+ "RET" 'hmm-lower-line
  "<up>" 'evil-previous-visual-line
  "C-h" 'evil-window-left
  "C-j" 'evil-window-down
@@ -422,6 +460,12 @@
  :keymaps 'org-mode-map
  :states 'insert
  "<return>" 'newline-and-indent)
+
+(general-define-key ;; Org
+ :keymaps 'org-mode-map
+ :states 'normal
+ "[" 'org-previous-visible-heading
+ "]" 'org-next-visible-heading)
 
 (general-define-key ;; Buffer menu
  :keymaps 'Buffer-menu-mode-map
@@ -461,7 +505,7 @@
  :states 'normal
  "SPC" 'reftex-toc-view-line
  "TAB" 'reftex-toc-goto-line
- "RET" 'reftex-toc-gotoline-and-hide
+ "RET" 'reftex-toc-goto-line-and-hide
  "<" 'reftex-toc-promote
  ">" 'reftex-toc-demote
  "C-c >" 'reftex-toc-display-index
@@ -485,16 +529,19 @@
   "<return>"
   )
 
+(when (>= emacs-major-version 27)
+  (general-define-key ;; Changing tabs
+   :keymaps 'override
+   "C-<left>" 'previous-buffer
+   "C-<right>" 'next-buffer))
+
 (defun hmm-lower-line ()
   "Add a line above, without moving point"
   (interactive "*")
   (let ((col (current-column)))
-    (evil-open-above 1)
-    (evil-next-line)
-    (move-to-column col)
-    (evil-forward-char)
-    (evil-force-normal-state))
-  nil)
+    (beginning-of-line)
+    (newline)
+    (move-to-column col)))
 
 (defun hmm-tex-add-timestamp ()
   "Add a timestamp to the last line of a tex file"
@@ -525,5 +572,3 @@
 	  (when (eq 'dired-mode (buffer-local-value ’major-mode buffer))
 	    (kill-buffer buffer)))
 	(buffer-list)))
-(put 'narrow-to-page 'disabled nil)
-(put 'set-goal-column 'disabled nil)
